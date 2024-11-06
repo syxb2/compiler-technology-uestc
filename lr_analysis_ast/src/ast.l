@@ -1,8 +1,8 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
-    #include <string.h>
-    #include "token.h"
+    #include "ast.tab.h"
+    int yylval;
 %}
 
 %option noyywrap 
@@ -67,11 +67,11 @@ void yyerror(const char *s) {
     return;
 }
 
-int main(int argc, char *argv[]) { 
-    int token;
-    while ((token = yylex()) != 0) {
-        printf("%d, %s\n", token, yytext);
-    }
-
-    return 0;
-}
+// int main(int argc, char *argv[]) { 
+//     int token;
+//     while ((token = yylex()) != 0) {
+//         printf("%d, %s\n", token, yytext);
+//     }
+// 
+//     return 0;
+// }

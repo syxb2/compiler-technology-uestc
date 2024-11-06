@@ -1,19 +1,18 @@
-#include "node_type.h"
-
+/**
+ * ast.h
+ *
+ *  Created on: 2014年10月23日
+ *      Author: erqiang
+ */
 typedef struct _ast ast;
 typedef struct _ast *past;
-
 struct _ast {
     int ivalue;
-    float fvalue;
-    char* svalue;
-    node_type nodeType;
+    char* nodeType;
     past left;
     past right;
-    past if_cond;
-    past next;
 };
 
 past newNum(int value);
 past newExpr(int oper, past left, past right);
-void showAst(past node, int nest, bool use_blank);
+void showAst(past node, int nest);
