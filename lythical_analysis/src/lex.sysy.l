@@ -92,7 +92,6 @@ int main(int argc, char *argv[]) {
             printf("<%d, SYMBOL>\n", token);
         else if (token == Y_ID)
             printf("<%d, %s>\n", Y_ID, yytext);
-
     }
 
     // fclose(yyin);
