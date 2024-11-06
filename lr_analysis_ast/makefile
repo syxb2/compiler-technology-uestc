@@ -40,8 +40,10 @@ $(BUILD_DIR):
 
 flex: $(LEX_C)
 	flex -o $(LEX_C) $(L_SOURCE)
+	gcc $(CFLAGS) $(LEX_C) -o $(TARGET)
 bison: $(YACC_C)
 	bison -d -o $(YACC_C) $(Y_SOURCE)
+	gcc $(CFLAGS) $(YACC_C) -o $(TARGET)
 # 清理生成的文件
 clean:
 	rm -rf $(BUILD_DIR) $(TARGET)

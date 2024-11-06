@@ -3,7 +3,6 @@
     #include <stdlib.h>
     #include <string.h>
     #include "token.h"
-    int yylval;
 %}
 
 %option noyywrap 
@@ -70,6 +69,9 @@ void yyerror(const char *s) {
 
 int main(int argc, char *argv[]) { 
     int token;
+    while ((token = yylex()) != 0) {
+        printf("%d, %s\n", token, yytext);
+    }
 
     return 0;
 }
