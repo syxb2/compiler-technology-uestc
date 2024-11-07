@@ -521,8 +521,8 @@ char *yytext;
 #line 2 "./src/ast.l"
     #include <stdio.h>
     #include <stdlib.h>
+    #include <stdbool.h>
     #include "ast.tab.h"
-    int yylval;
 #line 526 "./build/lex.yy.c"
 #line 527 "./build/lex.yy.c"
 

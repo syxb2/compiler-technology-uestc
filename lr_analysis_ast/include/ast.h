@@ -1,7 +1,7 @@
 #include "node_type.h"
 
 typedef struct _ast ast;
-typedef struct _ast *past;
+typedef struct _ast* past;
 
 struct _ast {
     int ivalue;
@@ -14,6 +14,7 @@ struct _ast {
     past next;
 };
 
+void showAst(past node, int nest, bool use_blank);
+void showToken(int Token);
 past newNum(int value);
 past newExpr(int oper, past left, past right);
-void showAst(past node, int nest, bool use_blank);

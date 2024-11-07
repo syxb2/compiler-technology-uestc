@@ -44,6 +44,15 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 1 "./src/ast.y"
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <stdbool.h>
+    #include "ast.h"
+
+#line 56 "./build/ast.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -97,7 +106,17 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 24 "./src/ast.y"
+
+    int iValue;
+    past pAst;
+
+#line 117 "./build/ast.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

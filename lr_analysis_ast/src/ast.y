@@ -1,10 +1,18 @@
-%{
+%code requires {
     #include <stdio.h>
     #include <stdlib.h>
+    #include <stdbool.h>
+    #include "ast.h"
+}
+/* %code requires {} 用于声明在解析器生成前必须包含的代码，通常是头文件的引用或前置声明。这部分代码会被放置在 Bison 自动生成的头文件中，确保其他文件或模块在包含这个头文件时也能获得这些定义 */
+
+%{
     extern int yylex(void);
     extern void yyerror(char* s);
     extern void yyrestart();
 %}
+/* %{ %} 用于包含需要嵌入在生成的解析器中的 C/C++ 代码。这部分代码通常被插入到生成的 .c 或 .cpp 文件的最前面 */
+/* 生成的 c 文件会自动引用 bison 生成的 h 文件 */
 
 %token num_FLOAT num_INT NUMBER
 %token Y_ID
@@ -16,10 +24,11 @@
 %union {
     int iValue;
     past pAst;
-} yylval;
+};
 
 
 %%
+/* TODO */
 CompUnit: Decl CompUnit
         | FuncDef CompUnit
         | Decl
@@ -155,6 +164,8 @@ Type: Y_INT
     ;
 %%
 
+
 int main() {
+    //TODO
     return 0;
 }

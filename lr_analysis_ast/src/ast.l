@@ -1,8 +1,8 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <stdbool.h>
     #include "ast.tab.h"
-    int yylval;
 %}
 
 %option noyywrap 

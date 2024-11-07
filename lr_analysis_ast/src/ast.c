@@ -2,8 +2,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ast.h"
-#include "node_type.h"
 #include "ast.tab.h"
 
 
@@ -159,9 +157,11 @@ void showToken(int Token) {
 }
 
 past newNum(int value) {
-
+    //TODO
+    return NULL;
 }
 
 past newExpr(int oper, past left, past right) {
-
+    //TODO
+    return NULL;
 }
