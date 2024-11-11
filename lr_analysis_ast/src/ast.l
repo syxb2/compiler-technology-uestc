@@ -53,8 +53,8 @@ NUMBER      ([+-])?{DIGITS}+(\.{DIGITS}+)?([E][+-]?{DIGIT}+)
 
 {ID}        { return Y_ID; }
 {HEXDIGHT}  { return num_INT; }
-{NUMBER}    { return num_FLOAT; }
 {DIGITS}    { return num_INT; }
+{NUMBER}    { return num_FLOAT; }
 
 [ \t\n]+    { ; /* ignore white space */ }
 "//"        { while (input() != '\n'); }
