@@ -1,7 +1,6 @@
 #ifndef AST_H
 #define AST_H
 
-#include <stdbool.h>
 #include "node_type.h"
 
 // 假设 AstNode 是你的 AST 节点结构体
@@ -18,7 +17,8 @@ struct _ast {
     past if_cond;
 };
 
-// 函数声明
+past root;
+
 /**
  * @brief 显示抽象语法树
  * 

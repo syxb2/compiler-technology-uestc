@@ -34,12 +34,11 @@ extern void yyrestart();
 %left Y_MUL Y_DIV
 
 %%
-/* TODO */
 // 编译单元：可以是声明或函数定义的组合
-CompUnit: Decl CompUnit { $$ = CompoundStmt($1, $2); }
-        | FuncDef CompUnit { $$ = CompoundStmt($1, $2); }
-        | Decl { $$ = $1; }
-        | FuncDef { $$ = $1; }
+CompUnit: Decl CompUnit { $$ = CompoundStmt($1, $2); root = $$; }
+        | FuncDef CompUnit { $$ = CompoundStmt($1, $2); root = $$; }
+        | Decl { $$ = $1; root = $$; }
+        | FuncDef { $$ = $1; root = $$; }
         ;
 
 // 声明：可以是常量声明或变量声明
@@ -239,9 +238,10 @@ Type: Y_INT { $$ = newType(Y_INT); }
 %%
 
 int main() {
-    while (yylex()) {
-        yyparse(); // 执行语法分析过程
-    }
+    yyparse(); // 执行语法分析过程
+
+    showAst(root, 10, false); // 打印语法树
 
     return 0;
 }
+
