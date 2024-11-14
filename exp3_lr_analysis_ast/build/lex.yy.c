@@ -519,10 +519,10 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "./src/ast.l"
 #line 2 "./src/ast.l"
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <stdbool.h>
-    #include "ast.tab.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "ast.tab.h"
 #line 526 "./build/lex.yy.c"
 #line 527 "./build/lex.yy.c"
 

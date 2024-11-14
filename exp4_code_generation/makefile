@@ -12,7 +12,7 @@ LL_FLAGS = -S -emit-llvm -o $(LL_TARGET)
 C_TARGET = a.out
 # C 源文件
 C_SOURCE = ./src/main.c \
-		   ./src/code_gen.c
+		   ./src/middle_code_gen.c
 # C 编译选项
 C_FLAGS = -o $(C_TARGET) -I ./include
 

@@ -60,8 +60,8 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    num_FLOAT = 258,               /* num_FLOAT  */
-    num_INT = 259,                 /* num_INT  */
+    num_INT = 258,                 /* num_INT  */
+    num_FLOAT = 259,               /* num_FLOAT  */
     Y_ID = 260,                    /* Y_ID  */
     Y_INT = 261,                   /* Y_INT  */
     Y_FLOAT = 262,                 /* Y_FLOAT  */
@@ -104,12 +104,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "./src/ast.y"
+#line 17 "./src/ast.y"
 
     int iValue;
+    float fValue;
+    char* sValue;
     past pAst;
 
-#line 113 "./build/ast.tab.h"
+#line 115 "./build/ast.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

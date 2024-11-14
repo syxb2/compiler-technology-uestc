@@ -16,7 +16,7 @@ past ContinueStmt();
 past AddExp();
 past MulExp();
 past NewUnaryExp();
-past NewNewPrimaryExp();
+past NewPrimaryExp();
 past LOrExp();
 past LAndExp();
 past EqExp();

@@ -64,3 +64,6 @@ src：指向源字符串的指针。
 
 返回目标字符串 dest 的指针。
 
+### 参考资料
+
+1. LLVM IR代码生成 - 二元表达式：https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-3.html
