@@ -34,6 +34,11 @@ extern void yyrestart();
 %left Y_MUL Y_DIV
 
 %%
+/* 大括号外的文法规则只是定义规约的规则，相当于定义变量，没有动作实现。大括号内才是实际要执行的动作（完全需要我们自己写）。 */
+/* 我们要做的是写出递归下降函数来计算终结符/非终结符的综合属性（如节点）和继承属性。 */
+/* 所以 bison 实际只是给出了一个文法规则的简便声明的方法，实际的规约动作还是需要我们自己实现。 */
+/* 并不需要每个非终结符都用单独的函数，可以有多个文法使用同一个规约函数（更简洁）。只要实现相应的功能即可。 */
+
 // 编译单元：可以是声明或函数定义的组合
 CompUnit: Decl CompUnit { $$ = CompoundStmt($1, $2); root = $$; }
         | FuncDef CompUnit { $$ = CompoundStmt($1, $2); root = $$; }
@@ -239,7 +244,6 @@ Type: Y_INT { $$ = newType(Y_INT); }
 
 int main() {
     yyparse(); // 执行语法分析过程
-
     showAst(root, 10, false); // 打印语法树
 
     return 0;

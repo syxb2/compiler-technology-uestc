@@ -9,6 +9,11 @@ extern YYSTYPE yylval;
 
 static int token;
 
+/**
+ * @brief 创建一个新的 AST 节点
+ * 
+ * @return past 返回新创建的 AST 节点
+ */
 past newAstNode() {
     past node = malloc(sizeof(ast));
     if (node == NULL) {
@@ -151,6 +156,36 @@ past rd_stmt() {
 
     else
         return NULL;
+}
+
+past rd_block() {
+    past left_expression = rd_stmt(), temp_expression = left_expression;
+
+    while (token != Y_RBRACKET) {
+        past right_expression = rd_stmt();
+        left_expression->next = right_expression;
+        left_expression = left_expression->next;
+    }
+
+    return temp_expression;
+}
+
+past rd_array_subscripts() {
+    if (token == Y_LBRACKET) {
+        token = yylex();
+        past index_expression = AddExp();
+        if (token != Y_RBRACKET)
+            return NULL;
+        token = yylex();
+
+        past array_expression = newAstNode();
+        array_expression->nodeType = ARRAY_SUBSCRIPT_EXPR;
+        array_expression->left = index_expression;
+
+        return array_expression;
+    }
+
+    return NULL;
 }
 
 past LOrExp() {
@@ -422,36 +457,6 @@ past UnaryOper(int oper, past left) {
     node->left = left;
 
     return node;
-}
-
-past rd_block() {
-    past left_expression = rd_stmt(), temp_expression = left_expression;
-
-    while (token != Y_RBRACKET) {
-        past right_expression = rd_stmt();
-        left_expression->next = right_expression;
-        left_expression = left_expression->next;
-    }
-
-    return temp_expression;
-}
-
-past rd_array_subscripts() {
-    if (token == Y_LBRACKET) {
-        token = yylex();
-        past index_expression = AddExp();
-        if (token != Y_RBRACKET)
-            return NULL;
-        token = yylex();
-
-        past array_expression = newAstNode();
-        array_expression->nodeType = ARRAY_SUBSCRIPT_EXPR;
-        array_expression->left = index_expression;
-
-        return array_expression;
-    }
-
-    return NULL;
 }
 
 

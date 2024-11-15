@@ -57,6 +57,22 @@ past rd_call_paras();
 past rd_stmt();
 
 /**
+ * @brief 读取一个代码块
+ * 
+ * @return past 返回解析后的代码块
+ */
+past rd_block();
+
+/**
+ * @brief 读取数组下标
+ * 
+ * 该函数用于读取数组的下标信息。
+ * 
+ * @return 返回一个指向数组下标的抽象语法树节点的指针。
+ */
+past rd_array_subscripts();
+
+/**
  * @brief 生成参数声明节点
  * 
  * @param left 左子节点
@@ -232,20 +248,5 @@ past newType(int type);
  */
 past UnaryOper(int oper, past left);
 
-/**
- * @brief 读取一个代码块
- * 
- * @return past 返回解析后的代码块
- */
-past rd_block();
-
-/**
- * @brief 读取数组下标
- * 
- * 该函数用于读取数组的下标信息。
- * 
- * @return 返回一个指向数组下标的抽象语法树节点的指针。
- */
-past rd_array_subscripts();
 
 #endif // AST_H

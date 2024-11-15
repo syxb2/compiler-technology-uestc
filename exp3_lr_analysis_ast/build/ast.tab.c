@@ -567,17 +567,17 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    38,    38,    39,    40,    41,    45,    46,    50,    51,
-      55,    56,    60,    61,    65,    66,    70,    71,    72,    73,
-      77,    78,    82,    83,    87,    88,    92,    93,    94,    95,
-      99,   100,   101,   102,   106,   107,   111,   112,   116,   117,
-     121,   122,   123,   124,   128,   129,   133,   134,   138,   139,
-     143,   144,   145,   146,   147,   148,   149,   150,   151,   152,
-     153,   157,   161,   162,   166,   167,   171,   172,   173,   174,
-     178,   179,   180,   181,   182,   183,   187,   188,   192,   193,
-     194,   195,   199,   200,   201,   205,   206,   207,   208,   209,
-     213,   214,   215,   219,   220,   224,   225,   229,   233,   234,
-     235
+       0,    39,    39,    40,    41,    42,    46,    47,    51,    52,
+      56,    57,    61,    62,    66,    67,    71,    72,    73,    74,
+      78,    79,    83,    84,    88,    89,    93,    94,    95,    96,
+     100,   101,   102,   103,   107,   108,   112,   113,   117,   118,
+     122,   123,   124,   125,   129,   130,   134,   135,   139,   140,
+     144,   145,   146,   147,   148,   149,   150,   151,   152,   153,
+     154,   158,   162,   163,   167,   168,   172,   173,   174,   175,
+     179,   180,   181,   182,   183,   184,   188,   189,   193,   194,
+     195,   196,   200,   201,   202,   206,   207,   208,   209,   210,
+     214,   215,   216,   220,   221,   225,   226,   230,   234,   235,
+     236
 };
 #endif
 
@@ -1284,595 +1284,595 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* CompUnit: Decl CompUnit  */
-#line 38 "./src/ast.y"
+#line 39 "./src/ast.y"
                         { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); root = (yyval.pAst); }
 #line 1290 "./build/ast.tab.c"
     break;
 
   case 3: /* CompUnit: FuncDef CompUnit  */
-#line 39 "./src/ast.y"
+#line 40 "./src/ast.y"
                            { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); root = (yyval.pAst); }
 #line 1296 "./build/ast.tab.c"
     break;
 
   case 4: /* CompUnit: Decl  */
-#line 40 "./src/ast.y"
+#line 41 "./src/ast.y"
                { (yyval.pAst) = (yyvsp[0].pAst); root = (yyval.pAst); }
 #line 1302 "./build/ast.tab.c"
     break;
 
   case 5: /* CompUnit: FuncDef  */
-#line 41 "./src/ast.y"
+#line 42 "./src/ast.y"
                   { (yyval.pAst) = (yyvsp[0].pAst); root = (yyval.pAst); }
 #line 1308 "./build/ast.tab.c"
     break;
 
   case 6: /* Decl: ConstDecl  */
-#line 45 "./src/ast.y"
+#line 46 "./src/ast.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1314 "./build/ast.tab.c"
     break;
 
   case 7: /* Decl: VarDecl  */
-#line 46 "./src/ast.y"
+#line 47 "./src/ast.y"
               { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1320 "./build/ast.tab.c"
     break;
 
   case 8: /* ConstDecl: Y_CONST Type ConstDef Y_SEMICOLON  */
-#line 50 "./src/ast.y"
+#line 51 "./src/ast.y"
                                              { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
 #line 1326 "./build/ast.tab.c"
     break;
 
   case 9: /* ConstDecl: Y_CONST Type ConstDefs Y_SEMICOLON  */
-#line 51 "./src/ast.y"
+#line 52 "./src/ast.y"
                                               { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
 #line 1332 "./build/ast.tab.c"
     break;
 
   case 10: /* ConstDefs: ConstDef Y_COMMA ConstDef  */
-#line 55 "./src/ast.y"
+#line 56 "./src/ast.y"
                                      { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
 #line 1338 "./build/ast.tab.c"
     break;
 
   case 11: /* ConstDefs: ConstDefs Y_COMMA ConstDef  */
-#line 56 "./src/ast.y"
+#line 57 "./src/ast.y"
                                       { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
 #line 1344 "./build/ast.tab.c"
     break;
 
   case 12: /* ConstDef: Y_ID Y_ASSIGN ConstInitVal  */
-#line 60 "./src/ast.y"
+#line 61 "./src/ast.y"
                                      { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-2].sValue), NULL, NULL), (yyvsp[0].pAst)); }
 #line 1350 "./build/ast.tab.c"
     break;
 
   case 13: /* ConstDef: Y_ID ConstExps Y_ASSIGN ConstInitVal  */
-#line 61 "./src/ast.y"
+#line 62 "./src/ast.y"
                                                { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-3].sValue), (yyvsp[-2].pAst), NULL), (yyvsp[0].pAst)); }
 #line 1356 "./build/ast.tab.c"
     break;
 
   case 14: /* ConstExps: Y_LSQUARE ConstExp Y_RSQUARE  */
-#line 65 "./src/ast.y"
+#line 66 "./src/ast.y"
                                         { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1362 "./build/ast.tab.c"
     break;
 
   case 15: /* ConstExps: Y_LSQUARE ConstExp Y_RSQUARE ConstExps  */
-#line 66 "./src/ast.y"
+#line 67 "./src/ast.y"
                                                   { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1368 "./build/ast.tab.c"
     break;
 
   case 16: /* ConstInitVal: ConstExp  */
-#line 70 "./src/ast.y"
+#line 71 "./src/ast.y"
                        { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1374 "./build/ast.tab.c"
     break;
 
   case 17: /* ConstInitVal: Y_LBRACKET Y_RBRACKET  */
-#line 71 "./src/ast.y"
+#line 72 "./src/ast.y"
                                     { (yyval.pAst) = NULL; }
 #line 1380 "./build/ast.tab.c"
     break;
 
   case 18: /* ConstInitVal: Y_LBRACKET ConstInitVal Y_RBRACKET  */
-#line 72 "./src/ast.y"
+#line 73 "./src/ast.y"
                                                  { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1386 "./build/ast.tab.c"
     break;
 
   case 19: /* ConstInitVal: Y_LBRACKET ConstInitVal ConstInitVals Y_RBRACKET  */
-#line 73 "./src/ast.y"
+#line 74 "./src/ast.y"
                                                                { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
 #line 1392 "./build/ast.tab.c"
     break;
 
   case 20: /* ConstInitVals: Y_COMMA ConstInitVal  */
-#line 77 "./src/ast.y"
+#line 78 "./src/ast.y"
                                     { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1398 "./build/ast.tab.c"
     break;
 
   case 21: /* ConstInitVals: Y_COMMA ConstInitVal ConstInitVals  */
-#line 78 "./src/ast.y"
+#line 79 "./src/ast.y"
                                                   { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
 #line 1404 "./build/ast.tab.c"
     break;
 
   case 22: /* VarDecl: Type VarDef Y_SEMICOLON  */
-#line 82 "./src/ast.y"
+#line 83 "./src/ast.y"
                                  { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
 #line 1410 "./build/ast.tab.c"
     break;
 
   case 23: /* VarDecl: Type VarDef VarDecls Y_SEMICOLON  */
-#line 83 "./src/ast.y"
+#line 84 "./src/ast.y"
                                           { (yyval.pAst) = ParaDecl((yyvsp[-3].pAst), (yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
 #line 1416 "./build/ast.tab.c"
     break;
 
   case 24: /* VarDecls: Y_COMMA VarDef  */
-#line 87 "./src/ast.y"
+#line 88 "./src/ast.y"
                          { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1422 "./build/ast.tab.c"
     break;
 
   case 25: /* VarDecls: Y_COMMA VarDef VarDecls  */
-#line 88 "./src/ast.y"
+#line 89 "./src/ast.y"
                                   { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
 #line 1428 "./build/ast.tab.c"
     break;
 
   case 26: /* VarDef: Y_ID  */
-#line 92 "./src/ast.y"
+#line 93 "./src/ast.y"
              { (yyval.pAst) = DeclRefExp((yyvsp[0].sValue), NULL, NULL); }
 #line 1434 "./build/ast.tab.c"
     break;
 
   case 27: /* VarDef: Y_ID Y_ASSIGN InitVal  */
-#line 93 "./src/ast.y"
+#line 94 "./src/ast.y"
                               { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-2].sValue), NULL, NULL), (yyvsp[0].pAst)); }
 #line 1440 "./build/ast.tab.c"
     break;
 
   case 28: /* VarDef: Y_ID ConstExps  */
-#line 94 "./src/ast.y"
+#line 95 "./src/ast.y"
                        { (yyval.pAst) = DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL); }
 #line 1446 "./build/ast.tab.c"
     break;
 
   case 29: /* VarDef: Y_ID ConstExps Y_ASSIGN InitVal  */
-#line 95 "./src/ast.y"
+#line 96 "./src/ast.y"
                                         { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-3].sValue), (yyvsp[-2].pAst), NULL), (yyvsp[0].pAst)); }
 #line 1452 "./build/ast.tab.c"
     break;
 
   case 30: /* InitVal: Exp  */
-#line 99 "./src/ast.y"
+#line 100 "./src/ast.y"
              { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1458 "./build/ast.tab.c"
     break;
 
   case 31: /* InitVal: Y_LBRACKET Y_RBRACKET  */
-#line 100 "./src/ast.y"
+#line 101 "./src/ast.y"
                                { (yyval.pAst) = NULL; }
 #line 1464 "./build/ast.tab.c"
     break;
 
   case 32: /* InitVal: Y_LBRACKET InitVal Y_RBRACKET  */
-#line 101 "./src/ast.y"
+#line 102 "./src/ast.y"
                                        { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1470 "./build/ast.tab.c"
     break;
 
   case 33: /* InitVal: Y_LBRACKET InitVal InitVals Y_RBRACKET  */
-#line 102 "./src/ast.y"
+#line 103 "./src/ast.y"
                                                 { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
 #line 1476 "./build/ast.tab.c"
     break;
 
   case 34: /* InitVals: Y_COMMA InitVal  */
-#line 106 "./src/ast.y"
+#line 107 "./src/ast.y"
                           { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1482 "./build/ast.tab.c"
     break;
 
   case 35: /* InitVals: Y_COMMA InitVal InitVals  */
-#line 107 "./src/ast.y"
+#line 108 "./src/ast.y"
                                    { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
 #line 1488 "./build/ast.tab.c"
     break;
 
   case 36: /* FuncDef: Type Y_ID Y_LPAR Y_RPAR Block  */
-#line 111 "./src/ast.y"
+#line 112 "./src/ast.y"
                                        { (yyval.pAst) = FuncDef((yyvsp[-4].pAst), (yyvsp[-3].sValue), NULL, (yyvsp[0].pAst)); }
 #line 1494 "./build/ast.tab.c"
     break;
 
   case 37: /* FuncDef: Type Y_ID Y_LPAR FuncParams Y_RPAR Block  */
-#line 112 "./src/ast.y"
+#line 113 "./src/ast.y"
                                                   { (yyval.pAst) = FuncDef((yyvsp[-5].pAst), (yyvsp[-4].sValue), (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1500 "./build/ast.tab.c"
     break;
 
   case 38: /* FuncParams: FuncParam  */
-#line 116 "./src/ast.y"
+#line 117 "./src/ast.y"
                       { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1506 "./build/ast.tab.c"
     break;
 
   case 39: /* FuncParams: FuncParams Y_COMMA FuncParam  */
-#line 117 "./src/ast.y"
+#line 118 "./src/ast.y"
                                          { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1512 "./build/ast.tab.c"
     break;
 
   case 40: /* FuncParam: Type Y_ID  */
-#line 121 "./src/ast.y"
+#line 122 "./src/ast.y"
                      { (yyval.pAst) = ParaDecl((yyvsp[-1].pAst), DeclRefExp((yyvsp[0].sValue), NULL, NULL), NULL); }
 #line 1518 "./build/ast.tab.c"
     break;
 
   case 41: /* FuncParam: Type Y_ID Y_LSQUARE Y_RSQUARE  */
-#line 122 "./src/ast.y"
+#line 123 "./src/ast.y"
                                          { (yyval.pAst) = ParaDecl((yyvsp[-3].pAst), DeclRefExp((yyvsp[-2].sValue), NULL, NULL), NULL); }
 #line 1524 "./build/ast.tab.c"
     break;
 
   case 42: /* FuncParam: Type Y_ID ArraySubscripts  */
-#line 123 "./src/ast.y"
+#line 124 "./src/ast.y"
                                      { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL), NULL); }
 #line 1530 "./build/ast.tab.c"
     break;
 
   case 43: /* FuncParam: Type Y_ID Y_LSQUARE Y_RSQUARE ArraySubscripts  */
-#line 124 "./src/ast.y"
+#line 125 "./src/ast.y"
                                                          { (yyval.pAst) = ParaDecl((yyvsp[-4].pAst), DeclRefExp((yyvsp[-3].sValue), (yyvsp[0].pAst), NULL), NULL); }
 #line 1536 "./build/ast.tab.c"
     break;
 
   case 44: /* Block: Y_LBRACKET BlockItems Y_RBRACKET  */
-#line 128 "./src/ast.y"
+#line 129 "./src/ast.y"
                                         { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1542 "./build/ast.tab.c"
     break;
 
   case 45: /* Block: Y_LBRACKET Y_RBRACKET  */
-#line 129 "./src/ast.y"
+#line 130 "./src/ast.y"
                              { (yyval.pAst) = NULL; }
 #line 1548 "./build/ast.tab.c"
     break;
 
   case 46: /* BlockItems: BlockItem  */
-#line 133 "./src/ast.y"
+#line 134 "./src/ast.y"
                       { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1554 "./build/ast.tab.c"
     break;
 
   case 47: /* BlockItems: BlockItem BlockItems  */
-#line 134 "./src/ast.y"
+#line 135 "./src/ast.y"
                                  { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
 #line 1560 "./build/ast.tab.c"
     break;
 
   case 48: /* BlockItem: Decl  */
-#line 138 "./src/ast.y"
+#line 139 "./src/ast.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1566 "./build/ast.tab.c"
     break;
 
   case 49: /* BlockItem: Stmt  */
-#line 139 "./src/ast.y"
+#line 140 "./src/ast.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1572 "./build/ast.tab.c"
     break;
 
   case 50: /* Stmt: LVal Y_ASSIGN Exp Y_SEMICOLON  */
-#line 143 "./src/ast.y"
+#line 144 "./src/ast.y"
                                     { (yyval.pAst) = BinaryOper(Y_ASSIGN, (yyvsp[-3].pAst), (yyvsp[-1].pAst)); }
 #line 1578 "./build/ast.tab.c"
     break;
 
   case 51: /* Stmt: Y_SEMICOLON  */
-#line 144 "./src/ast.y"
+#line 145 "./src/ast.y"
                   { (yyval.pAst) = NULL; }
 #line 1584 "./build/ast.tab.c"
     break;
 
   case 52: /* Stmt: Exp Y_SEMICOLON  */
-#line 145 "./src/ast.y"
+#line 146 "./src/ast.y"
                       { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1590 "./build/ast.tab.c"
     break;
 
   case 53: /* Stmt: Block  */
-#line 146 "./src/ast.y"
+#line 147 "./src/ast.y"
             { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1596 "./build/ast.tab.c"
     break;
 
   case 54: /* Stmt: Y_WHILE Y_LPAR LOrExp Y_RPAR Stmt  */
-#line 147 "./src/ast.y"
+#line 148 "./src/ast.y"
                                         { (yyval.pAst) = WhileStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1602 "./build/ast.tab.c"
     break;
 
   case 55: /* Stmt: Y_IF Y_LPAR LOrExp Y_RPAR Stmt  */
-#line 148 "./src/ast.y"
+#line 149 "./src/ast.y"
                                      { (yyval.pAst) = IfStmt((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
 #line 1608 "./build/ast.tab.c"
     break;
 
   case 56: /* Stmt: Y_IF Y_LPAR LOrExp Y_RPAR Stmt Y_ELSE Stmt  */
-#line 149 "./src/ast.y"
+#line 150 "./src/ast.y"
                                                  { (yyval.pAst) = IfStmt((yyvsp[-4].pAst), (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1614 "./build/ast.tab.c"
     break;
 
   case 57: /* Stmt: Y_BREAK Y_SEMICOLON  */
-#line 150 "./src/ast.y"
+#line 151 "./src/ast.y"
                           { (yyval.pAst) = BreakStmt(); }
 #line 1620 "./build/ast.tab.c"
     break;
 
   case 58: /* Stmt: Y_CONTINUE Y_SEMICOLON  */
-#line 151 "./src/ast.y"
+#line 152 "./src/ast.y"
                              { (yyval.pAst) = ContinueStmt(); }
 #line 1626 "./build/ast.tab.c"
     break;
 
   case 59: /* Stmt: Y_RETURN Exp Y_SEMICOLON  */
-#line 152 "./src/ast.y"
+#line 153 "./src/ast.y"
                                { (yyval.pAst) = ReturnStmt((yyvsp[-1].pAst), NULL); }
 #line 1632 "./build/ast.tab.c"
     break;
 
   case 60: /* Stmt: Y_RETURN Y_SEMICOLON  */
-#line 153 "./src/ast.y"
+#line 154 "./src/ast.y"
                            { (yyval.pAst) = ReturnStmt(NULL, NULL); }
 #line 1638 "./build/ast.tab.c"
     break;
 
   case 61: /* Exp: AddExp  */
-#line 157 "./src/ast.y"
+#line 158 "./src/ast.y"
             { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1644 "./build/ast.tab.c"
     break;
 
   case 62: /* LVal: Y_ID  */
-#line 161 "./src/ast.y"
+#line 162 "./src/ast.y"
            { (yyval.pAst) = DeclRefExp((yyvsp[0].sValue), NULL, NULL); }
 #line 1650 "./build/ast.tab.c"
     break;
 
   case 63: /* LVal: Y_ID ArraySubscripts  */
-#line 162 "./src/ast.y"
+#line 163 "./src/ast.y"
                            { (yyval.pAst) = DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL); }
 #line 1656 "./build/ast.tab.c"
     break;
 
   case 64: /* ArraySubscripts: Y_LSQUARE Exp Y_RSQUARE  */
-#line 166 "./src/ast.y"
+#line 167 "./src/ast.y"
                                          { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1662 "./build/ast.tab.c"
     break;
 
   case 65: /* ArraySubscripts: Y_LSQUARE Exp Y_RSQUARE ArraySubscripts  */
-#line 167 "./src/ast.y"
+#line 168 "./src/ast.y"
                                                          { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1668 "./build/ast.tab.c"
     break;
 
   case 66: /* PrimaryExp: Y_LPAR Exp Y_RPAR  */
-#line 171 "./src/ast.y"
+#line 172 "./src/ast.y"
                               { (yyval.pAst) = (yyvsp[-1].pAst); }
 #line 1674 "./build/ast.tab.c"
     break;
 
   case 67: /* PrimaryExp: LVal  */
-#line 172 "./src/ast.y"
+#line 173 "./src/ast.y"
                  { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1680 "./build/ast.tab.c"
     break;
 
   case 68: /* PrimaryExp: num_INT  */
-#line 173 "./src/ast.y"
+#line 174 "./src/ast.y"
                     { (yyval.pAst) = newInt((yyvsp[0].iValue)); }
 #line 1686 "./build/ast.tab.c"
     break;
 
   case 69: /* PrimaryExp: num_FLOAT  */
-#line 174 "./src/ast.y"
+#line 175 "./src/ast.y"
                       { (yyval.pAst) = newFloat((yyvsp[0].fValue)); }
 #line 1692 "./build/ast.tab.c"
     break;
 
   case 70: /* UnaryExp: PrimaryExp  */
-#line 178 "./src/ast.y"
+#line 179 "./src/ast.y"
                      { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1698 "./build/ast.tab.c"
     break;
 
   case 71: /* UnaryExp: Y_ID Y_LPAR Y_RPAR  */
-#line 179 "./src/ast.y"
+#line 180 "./src/ast.y"
                              { (yyval.pAst) = DeclRefExp((yyvsp[-2].sValue), NULL, NULL); }
 #line 1704 "./build/ast.tab.c"
     break;
 
   case 72: /* UnaryExp: Y_ID Y_LPAR CallParams Y_RPAR  */
-#line 180 "./src/ast.y"
+#line 181 "./src/ast.y"
                                         { (yyval.pAst) = DeclRefExp((yyvsp[-3].sValue), (yyvsp[-1].pAst), NULL); }
 #line 1710 "./build/ast.tab.c"
     break;
 
   case 73: /* UnaryExp: Y_ADD UnaryExp  */
-#line 181 "./src/ast.y"
+#line 182 "./src/ast.y"
                          { (yyval.pAst) = UnaryOper(Y_ADD, (yyvsp[0].pAst)); }
 #line 1716 "./build/ast.tab.c"
     break;
 
   case 74: /* UnaryExp: Y_SUB UnaryExp  */
-#line 182 "./src/ast.y"
+#line 183 "./src/ast.y"
                          { (yyval.pAst) = UnaryOper(Y_SUB, (yyvsp[0].pAst)); }
 #line 1722 "./build/ast.tab.c"
     break;
 
   case 75: /* UnaryExp: Y_NOT UnaryExp  */
-#line 183 "./src/ast.y"
+#line 184 "./src/ast.y"
                          { (yyval.pAst) = UnaryOper(Y_NOT, (yyvsp[0].pAst)); }
 #line 1728 "./build/ast.tab.c"
     break;
 
   case 76: /* CallParams: Exp  */
-#line 187 "./src/ast.y"
+#line 188 "./src/ast.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1734 "./build/ast.tab.c"
     break;
 
   case 77: /* CallParams: Exp Y_COMMA CallParams  */
-#line 188 "./src/ast.y"
+#line 189 "./src/ast.y"
                                    { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1740 "./build/ast.tab.c"
     break;
 
   case 78: /* MulExp: UnaryExp  */
-#line 192 "./src/ast.y"
+#line 193 "./src/ast.y"
                  { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1746 "./build/ast.tab.c"
     break;
 
   case 79: /* MulExp: MulExp Y_MUL UnaryExp  */
-#line 193 "./src/ast.y"
+#line 194 "./src/ast.y"
                               { (yyval.pAst) = BinaryOper(Y_MUL, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1752 "./build/ast.tab.c"
     break;
 
   case 80: /* MulExp: MulExp Y_DIV UnaryExp  */
-#line 194 "./src/ast.y"
+#line 195 "./src/ast.y"
                               { (yyval.pAst) = BinaryOper(Y_DIV, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1758 "./build/ast.tab.c"
     break;
 
   case 81: /* MulExp: MulExp Y_MODULO UnaryExp  */
-#line 195 "./src/ast.y"
+#line 196 "./src/ast.y"
                                  { (yyval.pAst) = BinaryOper(Y_MODULO, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1764 "./build/ast.tab.c"
     break;
 
   case 82: /* AddExp: MulExp  */
-#line 199 "./src/ast.y"
+#line 200 "./src/ast.y"
                { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1770 "./build/ast.tab.c"
     break;
 
   case 83: /* AddExp: AddExp Y_ADD MulExp  */
-#line 200 "./src/ast.y"
+#line 201 "./src/ast.y"
                             { (yyval.pAst) = BinaryOper(Y_ADD, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1776 "./build/ast.tab.c"
     break;
 
   case 84: /* AddExp: AddExp Y_SUB MulExp  */
-#line 201 "./src/ast.y"
+#line 202 "./src/ast.y"
                             { (yyval.pAst) = BinaryOper(Y_SUB, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1782 "./build/ast.tab.c"
     break;
 
   case 85: /* RelExp: AddExp  */
-#line 205 "./src/ast.y"
+#line 206 "./src/ast.y"
                { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1788 "./build/ast.tab.c"
     break;
 
   case 86: /* RelExp: AddExp Y_LESS RelExp  */
-#line 206 "./src/ast.y"
+#line 207 "./src/ast.y"
                              { (yyval.pAst) = BinaryOper(Y_LESS, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1794 "./build/ast.tab.c"
     break;
 
   case 87: /* RelExp: AddExp Y_GREAT RelExp  */
-#line 207 "./src/ast.y"
+#line 208 "./src/ast.y"
                               { (yyval.pAst) = BinaryOper(Y_GREAT, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1800 "./build/ast.tab.c"
     break;
 
   case 88: /* RelExp: AddExp Y_LESSEQ RelExp  */
-#line 208 "./src/ast.y"
+#line 209 "./src/ast.y"
                                { (yyval.pAst) = BinaryOper(Y_LESSEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1806 "./build/ast.tab.c"
     break;
 
   case 89: /* RelExp: AddExp Y_GREATEQ RelExp  */
-#line 209 "./src/ast.y"
+#line 210 "./src/ast.y"
                                 { (yyval.pAst) = BinaryOper(Y_GREATEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1812 "./build/ast.tab.c"
     break;
 
   case 90: /* EqExp: RelExp  */
-#line 213 "./src/ast.y"
+#line 214 "./src/ast.y"
               { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1818 "./build/ast.tab.c"
     break;
 
   case 91: /* EqExp: RelExp Y_EQ EqExp  */
-#line 214 "./src/ast.y"
+#line 215 "./src/ast.y"
                          { (yyval.pAst) = BinaryOper(Y_EQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1824 "./build/ast.tab.c"
     break;
 
   case 92: /* EqExp: RelExp Y_NOTEQ EqExp  */
-#line 215 "./src/ast.y"
+#line 216 "./src/ast.y"
                             { (yyval.pAst) = BinaryOper(Y_NOTEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1830 "./build/ast.tab.c"
     break;
 
   case 93: /* LAndExp: EqExp  */
-#line 219 "./src/ast.y"
+#line 220 "./src/ast.y"
                { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1836 "./build/ast.tab.c"
     break;
 
   case 94: /* LAndExp: EqExp Y_AND LAndExp  */
-#line 220 "./src/ast.y"
+#line 221 "./src/ast.y"
                              { (yyval.pAst) = BinaryOper(Y_AND, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1842 "./build/ast.tab.c"
     break;
 
   case 95: /* LOrExp: LAndExp  */
-#line 224 "./src/ast.y"
+#line 225 "./src/ast.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1848 "./build/ast.tab.c"
     break;
 
   case 96: /* LOrExp: LAndExp Y_OR LOrExp  */
-#line 225 "./src/ast.y"
+#line 226 "./src/ast.y"
                             { (yyval.pAst) = BinaryOper(Y_OR, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
 #line 1854 "./build/ast.tab.c"
     break;
 
   case 97: /* ConstExp: AddExp  */
-#line 229 "./src/ast.y"
+#line 230 "./src/ast.y"
                  { (yyval.pAst) = (yyvsp[0].pAst); }
 #line 1860 "./build/ast.tab.c"
     break;
 
   case 98: /* Type: Y_INT  */
-#line 233 "./src/ast.y"
+#line 234 "./src/ast.y"
             { (yyval.pAst) = newType(Y_INT); }
 #line 1866 "./build/ast.tab.c"
     break;
 
   case 99: /* Type: Y_FLOAT  */
-#line 234 "./src/ast.y"
+#line 235 "./src/ast.y"
               { (yyval.pAst) = newType(Y_FLOAT); }
 #line 1872 "./build/ast.tab.c"
     break;
 
   case 100: /* Type: Y_VOID  */
-#line 235 "./src/ast.y"
+#line 236 "./src/ast.y"
              { (yyval.pAst) = newType(Y_VOID); }
 #line 1878 "./build/ast.tab.c"
     break;
@@ -2071,12 +2071,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 238 "./src/ast.y"
+#line 239 "./src/ast.y"
 
 
 int main() {
     yyparse(); // 执行语法分析过程
-
     showAst(root, 10, false); // 打印语法树
 
     return 0;
