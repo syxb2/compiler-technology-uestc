@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ast.tab.h"
+#include "lrparser.tab.h"
 
 extern int yylex();
 extern YYSTYPE yylval;

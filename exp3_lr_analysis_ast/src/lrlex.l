@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "ast.tab.h"
+#include "lrparser.tab.h"
 %}
 
 %option noyywrap 

@@ -1,5 +1,6 @@
 # 忽略环境文件
 .vscode
+demo
 test
 
 .DS_Store

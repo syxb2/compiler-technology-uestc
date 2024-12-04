@@ -1,21 +1,29 @@
 # 生成目录
 BUILD_DIR = ./build
+
 # 源文件
-L_SOURCE = ./src/ast.l
-Y_SOURCE = ./src/ast.y
+L_SOURCE = ./src/lrlex.l
+Y_SOURCE = ./src/lrparser.y
 C_SOURCE = ./src/ast.c
+
 # flex 生成的 C 文件
-LEX_C = $(BUILD_DIR)/lex.yy.c
+LEX_C = $(BUILD_DIR)/lrlex.yy.c
+
 # bison 生成的 C 文件
-YACC_C = $(BUILD_DIR)/ast.tab.c
+YACC_C = $(BUILD_DIR)/lrparser.tab.c
+
 # bison 生成的头文件
-YACC_H = ./build/ast.tab.h
+YACC_H = ./build/lrparser.tab.h
+
 # gcc 编译选项
 C_FLAGS = -I./include -I./build -o $(TARGET)
+
 # bison 编译选项
-Y_FLAGS = -d -o $(YACC_C) -Wcounterexamples
+Y_FLAGS = -d -t -o $(YACC_C) -Wcounterexamples
+
 # flex 编译选项
-L_FLAGS = -o $(LEX_C)
+L_FLAGS = -d -o $(LEX_C)
+
 # 可执行文件
 TARGET = a.out
 

@@ -243,8 +243,11 @@ Type: Y_INT { $$ = newType(Y_INT); }
 %%
 
 int main() {
+    #ifdef YYDEBUG
+        yydebug = 1;
+    #endif
     yyparse(); // 执行语法分析过程
-    showAst(root, 10, false); // 打印语法树
+    showAst(root, 1, false); // 打印语法树
 
     return 0;
 }

@@ -3,7 +3,6 @@
 
 #include "node_type.h"
 
-// 假设 AstNode 是你的 AST 节点结构体
 typedef struct _ast ast;
 typedef struct _ast *past;
 struct _ast {
