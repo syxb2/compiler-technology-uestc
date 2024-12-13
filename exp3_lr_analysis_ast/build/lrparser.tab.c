@@ -99,7 +99,98 @@ extern void yyrestart();
 #  endif
 # endif
 
-#include "lrparser.tab.h"
+
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 1
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+/* "%code requires" blocks.  */
+#line 1 "./src/lrparser.y"
+
+    #include "ast.h"
+
+#line 116 "./build/lrparser.tab.c"
+
+/* Token kinds.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    num_INT = 258,                 /* num_INT  */
+    num_FLOAT = 259,               /* num_FLOAT  */
+    Y_ID = 260,                    /* Y_ID  */
+    Y_INT = 261,                   /* Y_INT  */
+    Y_FLOAT = 262,                 /* Y_FLOAT  */
+    Y_VOID = 263,                  /* Y_VOID  */
+    Y_CONST = 264,                 /* Y_CONST  */
+    Y_IF = 265,                    /* Y_IF  */
+    Y_ELSE = 266,                  /* Y_ELSE  */
+    Y_WHILE = 267,                 /* Y_WHILE  */
+    Y_BREAK = 268,                 /* Y_BREAK  */
+    Y_CONTINUE = 269,              /* Y_CONTINUE  */
+    Y_RETURN = 270,                /* Y_RETURN  */
+    Y_ADD = 271,                   /* Y_ADD  */
+    Y_SUB = 272,                   /* Y_SUB  */
+    Y_MUL = 273,                   /* Y_MUL  */
+    Y_DIV = 274,                   /* Y_DIV  */
+    Y_MODULO = 275,                /* Y_MODULO  */
+    Y_LESS = 276,                  /* Y_LESS  */
+    Y_LESSEQ = 277,                /* Y_LESSEQ  */
+    Y_GREAT = 278,                 /* Y_GREAT  */
+    Y_GREATEQ = 279,               /* Y_GREATEQ  */
+    Y_NOTEQ = 280,                 /* Y_NOTEQ  */
+    Y_EQ = 281,                    /* Y_EQ  */
+    Y_NOT = 282,                   /* Y_NOT  */
+    Y_AND = 283,                   /* Y_AND  */
+    Y_OR = 284,                    /* Y_OR  */
+    Y_ASSIGN = 285,                /* Y_ASSIGN  */
+    Y_LPAR = 286,                  /* Y_LPAR  */
+    Y_RPAR = 287,                  /* Y_RPAR  */
+    Y_LBRACKET = 288,              /* Y_LBRACKET  */
+    Y_RBRACKET = 289,              /* Y_RBRACKET  */
+    Y_LSQUARE = 290,               /* Y_LSQUARE  */
+    Y_RSQUARE = 291,               /* Y_RSQUARE  */
+    Y_COMMA = 292,                 /* Y_COMMA  */
+    Y_SEMICOLON = 293              /* Y_SEMICOLON  */
+  };
+  typedef enum yytokentype yytoken_kind_t;
+#endif
+
+/* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+union YYSTYPE
+{
+#line 17 "./src/lrparser.y"
+
+    int token;
+    int iValue;
+    float fValue;
+    char* sValue;
+    past pAst;
+
+#line 179 "./build/lrparser.tab.c"
+
+};
+typedef union YYSTYPE YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
+
+
+extern YYSTYPE yylval;
+
+
+int yyparse (void);
+
+
+
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -144,40 +235,41 @@ enum yysymbol_kind_t
   YYSYMBOL_Y_COMMA = 37,                   /* Y_COMMA  */
   YYSYMBOL_Y_SEMICOLON = 38,               /* Y_SEMICOLON  */
   YYSYMBOL_YYACCEPT = 39,                  /* $accept  */
-  YYSYMBOL_CompUnit = 40,                  /* CompUnit  */
-  YYSYMBOL_Decl = 41,                      /* Decl  */
-  YYSYMBOL_ConstDecl = 42,                 /* ConstDecl  */
-  YYSYMBOL_ConstDefs = 43,                 /* ConstDefs  */
-  YYSYMBOL_ConstDef = 44,                  /* ConstDef  */
-  YYSYMBOL_ConstExps = 45,                 /* ConstExps  */
-  YYSYMBOL_ConstInitVal = 46,              /* ConstInitVal  */
-  YYSYMBOL_ConstInitVals = 47,             /* ConstInitVals  */
-  YYSYMBOL_VarDecl = 48,                   /* VarDecl  */
-  YYSYMBOL_VarDecls = 49,                  /* VarDecls  */
-  YYSYMBOL_VarDef = 50,                    /* VarDef  */
-  YYSYMBOL_InitVal = 51,                   /* InitVal  */
-  YYSYMBOL_InitVals = 52,                  /* InitVals  */
-  YYSYMBOL_FuncDef = 53,                   /* FuncDef  */
-  YYSYMBOL_FuncParams = 54,                /* FuncParams  */
-  YYSYMBOL_FuncParam = 55,                 /* FuncParam  */
-  YYSYMBOL_Block = 56,                     /* Block  */
-  YYSYMBOL_BlockItems = 57,                /* BlockItems  */
-  YYSYMBOL_BlockItem = 58,                 /* BlockItem  */
-  YYSYMBOL_Stmt = 59,                      /* Stmt  */
-  YYSYMBOL_Exp = 60,                       /* Exp  */
-  YYSYMBOL_LVal = 61,                      /* LVal  */
-  YYSYMBOL_ArraySubscripts = 62,           /* ArraySubscripts  */
-  YYSYMBOL_PrimaryExp = 63,                /* PrimaryExp  */
-  YYSYMBOL_UnaryExp = 64,                  /* UnaryExp  */
-  YYSYMBOL_CallParams = 65,                /* CallParams  */
-  YYSYMBOL_MulExp = 66,                    /* MulExp  */
-  YYSYMBOL_AddExp = 67,                    /* AddExp  */
-  YYSYMBOL_RelExp = 68,                    /* RelExp  */
-  YYSYMBOL_EqExp = 69,                     /* EqExp  */
-  YYSYMBOL_LAndExp = 70,                   /* LAndExp  */
-  YYSYMBOL_LOrExp = 71,                    /* LOrExp  */
-  YYSYMBOL_ConstExp = 72,                  /* ConstExp  */
-  YYSYMBOL_Type = 73                       /* Type  */
+  YYSYMBOL_program = 40,                   /* program  */
+  YYSYMBOL_CompUnit = 41,                  /* CompUnit  */
+  YYSYMBOL_Decl = 42,                      /* Decl  */
+  YYSYMBOL_ConstDecl = 43,                 /* ConstDecl  */
+  YYSYMBOL_ConstDefs = 44,                 /* ConstDefs  */
+  YYSYMBOL_ConstDef = 45,                  /* ConstDef  */
+  YYSYMBOL_ConstExps = 46,                 /* ConstExps  */
+  YYSYMBOL_ConstInitVal = 47,              /* ConstInitVal  */
+  YYSYMBOL_ConstInitVals = 48,             /* ConstInitVals  */
+  YYSYMBOL_VarDecl = 49,                   /* VarDecl  */
+  YYSYMBOL_VarDecls = 50,                  /* VarDecls  */
+  YYSYMBOL_VarDef = 51,                    /* VarDef  */
+  YYSYMBOL_InitVal = 52,                   /* InitVal  */
+  YYSYMBOL_InitVals = 53,                  /* InitVals  */
+  YYSYMBOL_FuncDef = 54,                   /* FuncDef  */
+  YYSYMBOL_FuncParams = 55,                /* FuncParams  */
+  YYSYMBOL_FuncParam = 56,                 /* FuncParam  */
+  YYSYMBOL_Block = 57,                     /* Block  */
+  YYSYMBOL_BlockItems = 58,                /* BlockItems  */
+  YYSYMBOL_BlockItem = 59,                 /* BlockItem  */
+  YYSYMBOL_Stmt = 60,                      /* Stmt  */
+  YYSYMBOL_Exp = 61,                       /* Exp  */
+  YYSYMBOL_LVal = 62,                      /* LVal  */
+  YYSYMBOL_ArraySubscripts = 63,           /* ArraySubscripts  */
+  YYSYMBOL_PrimaryExp = 64,                /* PrimaryExp  */
+  YYSYMBOL_UnaryExp = 65,                  /* UnaryExp  */
+  YYSYMBOL_CallParams = 66,                /* CallParams  */
+  YYSYMBOL_MulExp = 67,                    /* MulExp  */
+  YYSYMBOL_AddExp = 68,                    /* AddExp  */
+  YYSYMBOL_RelExp = 69,                    /* RelExp  */
+  YYSYMBOL_EqExp = 70,                     /* EqExp  */
+  YYSYMBOL_LAndExp = 71,                   /* LAndExp  */
+  YYSYMBOL_LOrExp = 72,                    /* LOrExp  */
+  YYSYMBOL_ConstExp = 73,                  /* ConstExp  */
+  YYSYMBOL_Type = 74                       /* Type  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -503,18 +595,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  12
+#define YYFINAL  13
 /* YYLAST -- Last index in YYTABLE.  */
 #define YYLAST   312
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  35
+#define YYNNTS  36
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  100
+#define YYNRULES  101
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  179
+#define YYNSTATES  181
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   293
@@ -567,17 +659,17 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    43,    43,    44,    45,    46,    50,    51,    55,    56,
-      60,    61,    65,    66,    70,    71,    75,    76,    77,    78,
-      82,    83,    87,    88,    92,    93,    97,    98,    99,   100,
-     104,   105,   106,   107,   111,   112,   116,   117,   121,   122,
-     126,   127,   128,   129,   133,   134,   138,   139,   143,   144,
-     148,   149,   150,   151,   152,   153,   154,   155,   156,   157,
-     158,   162,   166,   167,   171,   172,   176,   177,   178,   179,
-     183,   184,   185,   186,   187,   188,   192,   193,   197,   198,
-     199,   200,   204,   205,   206,   210,   211,   212,   213,   214,
-     218,   219,   220,   224,   225,   229,   230,   234,   238,   239,
-     240
+       0,    43,    43,    47,    48,    49,    50,    54,    55,    59,
+      60,    64,    65,    69,    70,    74,    75,    79,    80,    81,
+      82,    86,    87,    91,    92,    96,    97,   101,   102,   103,
+     104,   108,   109,   110,   111,   115,   116,   120,   121,   125,
+     126,   130,   131,   132,   133,   137,   138,   142,   143,   147,
+     148,   152,   153,   154,   155,   156,   157,   158,   159,   160,
+     161,   162,   166,   170,   171,   175,   176,   180,   181,   182,
+     183,   187,   188,   189,   190,   191,   192,   196,   197,   201,
+     202,   203,   204,   208,   209,   210,   214,   215,   216,   217,
+     218,   222,   223,   224,   228,   229,   233,   234,   238,   242,
+     243,   244
 };
 #endif
 
@@ -599,13 +691,13 @@ static const char *const yytname[] =
   "Y_MUL", "Y_DIV", "Y_MODULO", "Y_LESS", "Y_LESSEQ", "Y_GREAT",
   "Y_GREATEQ", "Y_NOTEQ", "Y_EQ", "Y_NOT", "Y_AND", "Y_OR", "Y_ASSIGN",
   "Y_LPAR", "Y_RPAR", "Y_LBRACKET", "Y_RBRACKET", "Y_LSQUARE", "Y_RSQUARE",
-  "Y_COMMA", "Y_SEMICOLON", "$accept", "CompUnit", "Decl", "ConstDecl",
-  "ConstDefs", "ConstDef", "ConstExps", "ConstInitVal", "ConstInitVals",
-  "VarDecl", "VarDecls", "VarDef", "InitVal", "InitVals", "FuncDef",
-  "FuncParams", "FuncParam", "Block", "BlockItems", "BlockItem", "Stmt",
-  "Exp", "LVal", "ArraySubscripts", "PrimaryExp", "UnaryExp", "CallParams",
-  "MulExp", "AddExp", "RelExp", "EqExp", "LAndExp", "LOrExp", "ConstExp",
-  "Type", YY_NULLPTR
+  "Y_COMMA", "Y_SEMICOLON", "$accept", "program", "CompUnit", "Decl",
+  "ConstDecl", "ConstDefs", "ConstDef", "ConstExps", "ConstInitVal",
+  "ConstInitVals", "VarDecl", "VarDecls", "VarDef", "InitVal", "InitVals",
+  "FuncDef", "FuncParams", "FuncParam", "Block", "BlockItems", "BlockItem",
+  "Stmt", "Exp", "LVal", "ArraySubscripts", "PrimaryExp", "UnaryExp",
+  "CallParams", "MulExp", "AddExp", "RelExp", "EqExp", "LAndExp", "LOrExp",
+  "ConstExp", "Type", YY_NULLPTR
 };
 
 static const char *
@@ -615,7 +707,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-110)
+#define YYPACT_NINF (-119)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -629,24 +721,25 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-      86,  -110,  -110,  -110,    49,    25,    86,  -110,  -110,    86,
-      59,    91,  -110,  -110,  -110,     3,    -6,   -16,     4,    75,
-     243,    20,   281,    73,   100,  -110,    81,   261,    96,    91,
-    -110,    91,  -110,  -110,  -110,    32,   281,   281,   281,   281,
-      94,  -110,  -110,  -110,  -110,  -110,   104,   113,   117,    38,
-    -110,   128,   113,   125,   243,    43,   132,  -110,   224,  -110,
-    -110,   261,  -110,  -110,   264,   281,  -110,  -110,  -110,  -110,
-     142,  -110,    47,   281,   281,   281,   281,   281,   139,  -110,
-     117,    49,   136,   140,  -110,  -110,  -110,    51,  -110,  -110,
-     149,   144,   157,  -110,  -110,   243,   160,  -110,  -110,  -110,
-     104,   104,   164,   165,   159,   161,    13,  -110,  -110,  -110,
-    -110,   166,   175,  -110,   163,   168,   100,  -110,  -110,    55,
-    -110,  -110,  -110,   261,   169,   281,  -110,   170,   167,  -110,
-     281,   281,  -110,  -110,  -110,   174,  -110,  -110,  -110,   281,
-     170,   177,  -110,  -110,  -110,  -110,   141,   106,   179,   186,
-     185,   192,  -110,   187,  -110,  -110,   281,   281,   281,   281,
-     281,   281,   281,   281,   206,   206,  -110,  -110,  -110,  -110,
-    -110,  -110,  -110,  -110,  -110,   215,  -110,   206,  -110
+     108,  -119,  -119,  -119,   116,    34,    59,   108,  -119,  -119,
+     108,    43,    72,  -119,  -119,  -119,  -119,   -12,    67,    -3,
+      81,   122,   243,    48,   281,    51,    78,  -119,    54,   261,
+      66,    72,  -119,    72,  -119,  -119,  -119,     6,   281,   281,
+     281,   281,    94,  -119,  -119,  -119,  -119,  -119,   149,     0,
+      56,    -4,  -119,    97,     0,    76,   243,    28,    89,  -119,
+     224,  -119,  -119,   261,  -119,  -119,   264,   281,  -119,  -119,
+    -119,  -119,   101,  -119,    33,   281,   281,   281,   281,   281,
+     139,  -119,    56,   116,   115,   126,  -119,  -119,  -119,    35,
+    -119,  -119,   134,   144,   150,  -119,  -119,   243,   161,  -119,
+    -119,  -119,   149,   149,   165,   166,   160,   162,    26,  -119,
+    -119,  -119,  -119,   167,   175,  -119,   169,   173,    78,  -119,
+    -119,    57,  -119,  -119,  -119,   261,   170,   281,  -119,   164,
+     168,  -119,   281,   281,  -119,  -119,  -119,   174,  -119,  -119,
+    -119,   281,   164,   177,  -119,  -119,  -119,  -119,   141,    60,
+     187,   188,   192,   193,  -119,   194,  -119,  -119,   281,   281,
+     281,   281,   281,   281,   281,   281,   206,   206,  -119,  -119,
+    -119,  -119,  -119,  -119,  -119,  -119,  -119,   215,  -119,   206,
+    -119
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -654,42 +747,43 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    98,    99,   100,     0,     0,     4,     6,     7,     5,
-       0,     0,     1,     2,     3,    26,     0,     0,     0,     0,
-       0,     0,     0,    28,     0,    22,     0,     0,     0,     0,
-       9,     0,     8,    68,    69,    62,     0,     0,     0,     0,
-       0,    27,    30,    67,    70,    78,    82,    61,     0,     0,
-      38,     0,    97,     0,     0,    26,    24,    23,     0,    12,
-      16,     0,    11,    10,     0,     0,    63,    73,    74,    75,
-       0,    31,     0,     0,     0,     0,     0,     0,     0,    36,
-       0,     0,    40,    14,    29,    25,    17,     0,    13,    71,
-      76,     0,     0,    66,    32,     0,     0,    79,    80,    81,
-      83,    84,     0,     0,     0,     0,     0,    45,    51,    48,
-      53,     0,    46,    49,     0,    67,     0,    37,    39,     0,
-      42,    15,    18,     0,     0,     0,    72,    64,    34,    33,
-       0,     0,    57,    58,    60,     0,    44,    47,    52,     0,
-      41,    20,    19,    77,    65,    35,    85,    90,    93,    95,
-       0,     0,    59,     0,    43,    21,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    50,    86,    88,    87,
-      89,    92,    91,    94,    96,    55,    54,     0,    56
+       0,    99,   100,   101,     0,     0,     0,     5,     7,     8,
+       6,     0,     0,     1,     2,     3,     4,    27,     0,     0,
+       0,     0,     0,     0,     0,    29,     0,    23,     0,     0,
+       0,     0,    10,     0,     9,    69,    70,    63,     0,     0,
+       0,     0,     0,    28,    31,    68,    71,    79,    83,    62,
+       0,     0,    39,     0,    98,     0,     0,    27,    25,    24,
+       0,    13,    17,     0,    12,    11,     0,     0,    64,    74,
+      75,    76,     0,    32,     0,     0,     0,     0,     0,     0,
+       0,    37,     0,     0,    41,    15,    30,    26,    18,     0,
+      14,    72,    77,     0,     0,    67,    33,     0,     0,    80,
+      81,    82,    84,    85,     0,     0,     0,     0,     0,    46,
+      52,    49,    54,     0,    47,    50,     0,    68,     0,    38,
+      40,     0,    43,    16,    19,     0,     0,     0,    73,    65,
+      35,    34,     0,     0,    58,    59,    61,     0,    45,    48,
+      53,     0,    42,    21,    20,    78,    66,    36,    86,    91,
+      94,    96,     0,     0,    60,     0,    44,    22,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    51,    87,
+      89,    88,    90,    93,    92,    95,    97,    56,    55,     0,
+      57
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -110,    98,   -69,  -110,  -110,    48,   -15,   -54,    89,  -110,
-     176,   207,   -30,   107,  -110,  -110,   153,   -33,   124,  -110,
-    -103,   -19,   -75,   -74,  -110,   -25,   118,    83,   -22,   -41,
-       7,    76,  -109,   220,     2
+    -119,  -119,    68,   -70,  -119,  -119,    -7,   -17,   -54,    87,
+    -119,   176,   205,   -31,   105,  -119,  -119,   153,   -42,   124,
+    -119,   -72,   -21,   -76,   -77,  -119,   -26,   118,    96,   -24,
+     -29,    31,    79,  -118,   218,    -1
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_uint8 yydefgoto[] =
 {
-       0,     5,     6,     7,    18,    19,    23,    59,   124,     8,
-      26,    16,    41,    96,     9,    49,    50,   110,   111,   112,
-     113,   114,    43,    66,    44,    45,    91,    46,    47,   147,
-     148,   149,   150,    60,    10
+       0,     5,     6,     7,     8,    20,    21,    25,    61,   126,
+       9,    28,    18,    43,    98,    10,    51,    52,   112,   113,
+     114,   115,   116,    45,    68,    46,    47,    93,    48,    49,
+     149,   150,   151,   152,    62,    11
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -697,67 +791,67 @@ static const yytype_uint8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      52,    42,    28,   115,    87,    52,    11,    88,   120,   109,
-      72,    67,    68,    69,    27,    79,    33,    34,    35,    22,
-      70,    42,   151,    51,    84,    12,     1,     2,     3,    36,
-      37,    24,    25,    20,    21,    42,    52,   115,    22,    52,
-      38,    29,    30,   109,    39,    90,    92,   117,    97,    98,
-      99,   134,    48,   144,   174,     1,     2,     3,    33,    34,
-      35,   175,   176,    64,    15,   128,   154,    65,   121,   141,
-      80,    36,    37,    20,   178,    81,    42,    62,    22,    63,
-     116,    94,    38,    51,    95,   122,    39,   135,   123,   115,
-     115,   140,     1,     2,     3,     4,    17,    33,    34,    35,
-      92,    52,   115,    54,    13,    55,    90,    14,   146,   146,
-      36,    37,    31,    32,   116,   167,   168,   169,   170,    57,
-     153,    38,    73,    74,    75,    39,    61,    40,    71,    76,
-      77,   160,   161,    82,   146,   146,   146,   146,   146,   146,
-     146,   146,    33,    34,    35,     1,     2,     3,     4,   102,
-      78,   103,   104,   105,   106,    36,    37,    76,    77,   100,
-     101,    83,   156,   157,   158,   159,    38,   171,   172,    24,
-      39,   119,    78,   107,    93,    22,   126,   108,    33,    34,
-      35,     1,     2,     3,     4,   102,   125,   103,   104,   105,
-     106,    36,    37,   127,   129,   130,   131,   132,   139,   133,
-     136,   138,    38,   142,    95,    65,    39,   162,    78,    33,
-      34,    35,   152,   108,   123,   163,   102,   164,   103,   104,
-     105,   106,    36,    37,   165,   166,   177,    33,    34,    35,
-     155,    56,    85,    38,   118,   145,   137,    39,   173,    78,
-      36,    37,    53,   143,   108,     0,    33,    34,    35,     0,
-       0,    38,     0,     0,     0,    39,     0,    58,    86,    36,
-      37,     0,     0,     0,    33,    34,    35,    33,    34,    35,
-      38,     0,     0,     0,    39,     0,    40,    36,    37,     0,
-      36,    37,     0,     0,    33,    34,    35,     0,    38,     0,
-       0,    38,    39,     0,    58,    39,    89,    36,    37,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    38,     0,
-       0,     0,    39
+      54,    44,    30,    12,   117,    54,    89,   122,    81,    90,
+     111,    74,    69,    70,    71,   153,    78,    79,    22,    23,
+      72,    44,    53,    24,    64,    86,    65,    29,    82,    35,
+      36,    37,    24,    83,    13,    44,    54,    66,   117,    54,
+     119,    67,    38,    39,   111,    92,    94,   176,    17,    99,
+     100,   101,   146,    40,     1,     2,     3,    41,    22,    14,
+      35,    36,    37,    24,   136,   156,   130,    96,   123,   124,
+      97,   143,   125,    38,    39,    15,    44,    19,    16,   118,
+      50,    56,    53,    57,    40,   162,   163,   137,    41,    80,
+     117,   117,    59,   142,   177,   178,    63,    35,    36,    37,
+      94,    54,    84,   117,    26,    27,    92,   180,   148,   148,
+      38,    39,    85,   118,     1,     2,     3,     4,    31,    32,
+     155,    40,     1,     2,     3,    41,    26,    42,    73,   169,
+     170,   171,   172,    95,   148,   148,   148,   148,   148,   148,
+     148,   148,    35,    36,    37,     1,     2,     3,     4,   104,
+     121,   105,   106,   107,   108,    38,    39,    78,    79,    33,
+      34,    24,   158,   159,   160,   161,    40,    75,    76,    77,
+      41,   127,    80,   109,   102,   103,   128,   110,    35,    36,
+      37,     1,     2,     3,     4,   104,   129,   105,   106,   107,
+     108,    38,    39,   173,   174,   131,   132,   133,   134,    67,
+     135,   138,    40,   141,   144,    97,    41,   140,    80,    35,
+      36,    37,   154,   110,   125,   164,   104,   165,   105,   106,
+     107,   108,    38,    39,   166,   167,   179,    35,    36,    37,
+     157,    58,   168,    40,    87,   147,   120,    41,   139,    80,
+      38,    39,    55,   175,   110,   145,    35,    36,    37,     0,
+       0,    40,     0,     0,     0,    41,     0,    60,    88,    38,
+      39,     0,     0,     0,    35,    36,    37,    35,    36,    37,
+      40,     0,     0,     0,    41,     0,    42,    38,    39,     0,
+      38,    39,     0,     0,    35,    36,    37,     0,    40,     0,
+       0,    40,    41,     0,    60,    41,    91,    38,    39,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    40,     0,
+       0,     0,    41
 };
 
 static const yytype_int16 yycheck[] =
 {
-      22,    20,    17,    78,    58,    27,     4,    61,    82,    78,
-      40,    36,    37,    38,    30,    48,     3,     4,     5,    35,
-      39,    40,   131,    21,    54,     0,     6,     7,     8,    16,
-      17,    37,    38,    30,    31,    54,    58,   112,    35,    61,
-      27,    37,    38,   112,    31,    64,    65,    80,    73,    74,
-      75,    38,    32,   127,   163,     6,     7,     8,     3,     4,
-       5,   164,   165,    31,     5,    95,   140,    35,    83,   123,
-      32,    16,    17,    30,   177,    37,    95,    29,    35,    31,
-      78,    34,    27,    81,    37,    34,    31,   106,    37,   164,
-     165,    36,     6,     7,     8,     9,     5,     3,     4,     5,
-     119,   123,   177,    30,     6,     5,   125,     9,   130,   131,
-      16,    17,    37,    38,   112,   156,   157,   158,   159,    38,
-     139,    27,    18,    19,    20,    31,    30,    33,    34,    16,
-      17,    25,    26,     5,   156,   157,   158,   159,   160,   161,
-     162,   163,     3,     4,     5,     6,     7,     8,     9,    10,
-      33,    12,    13,    14,    15,    16,    17,    16,    17,    76,
-      77,    36,    21,    22,    23,    24,    27,   160,   161,    37,
-      31,    35,    33,    34,    32,    35,    32,    38,     3,     4,
-       5,     6,     7,     8,     9,    10,    37,    12,    13,    14,
-      15,    16,    17,    36,    34,    31,    31,    38,    30,    38,
-      34,    38,    27,    34,    37,    35,    31,    28,    33,     3,
-       4,     5,    38,    38,    37,    29,    10,    32,    12,    13,
-      14,    15,    16,    17,    32,    38,    11,     3,     4,     5,
-     141,    24,    56,    27,    81,   128,   112,    31,   162,    33,
-      16,    17,    22,   125,    38,    -1,     3,     4,     5,    -1,
+      24,    22,    19,     4,    80,    29,    60,    84,    50,    63,
+      80,    42,    38,    39,    40,   133,    16,    17,    30,    31,
+      41,    42,    23,    35,    31,    56,    33,    30,    32,     3,
+       4,     5,    35,    37,     0,    56,    60,    31,   114,    63,
+      82,    35,    16,    17,   114,    66,    67,   165,     5,    75,
+      76,    77,   129,    27,     6,     7,     8,    31,    30,     0,
+       3,     4,     5,    35,    38,   142,    97,    34,    85,    34,
+      37,   125,    37,    16,    17,     7,    97,     5,    10,    80,
+      32,    30,    83,     5,    27,    25,    26,   108,    31,    33,
+     166,   167,    38,    36,   166,   167,    30,     3,     4,     5,
+     121,   125,     5,   179,    37,    38,   127,   179,   132,   133,
+      16,    17,    36,   114,     6,     7,     8,     9,    37,    38,
+     141,    27,     6,     7,     8,    31,    37,    33,    34,   158,
+     159,   160,   161,    32,   158,   159,   160,   161,   162,   163,
+     164,   165,     3,     4,     5,     6,     7,     8,     9,    10,
+      35,    12,    13,    14,    15,    16,    17,    16,    17,    37,
+      38,    35,    21,    22,    23,    24,    27,    18,    19,    20,
+      31,    37,    33,    34,    78,    79,    32,    38,     3,     4,
+       5,     6,     7,     8,     9,    10,    36,    12,    13,    14,
+      15,    16,    17,   162,   163,    34,    31,    31,    38,    35,
+      38,    34,    27,    30,    34,    37,    31,    38,    33,     3,
+       4,     5,    38,    38,    37,    28,    10,    29,    12,    13,
+      14,    15,    16,    17,    32,    32,    11,     3,     4,     5,
+     143,    26,    38,    27,    58,   130,    83,    31,   114,    33,
+      16,    17,    24,   164,    38,   127,     3,     4,     5,    -1,
       -1,    27,    -1,    -1,    -1,    31,    -1,    33,    34,    16,
       17,    -1,    -1,    -1,     3,     4,     5,     3,     4,     5,
       27,    -1,    -1,    -1,    31,    -1,    33,    16,    17,    -1,
@@ -771,56 +865,57 @@ static const yytype_int16 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     6,     7,     8,     9,    40,    41,    42,    48,    53,
-      73,    73,     0,    40,    40,     5,    50,     5,    43,    44,
-      30,    31,    35,    45,    37,    38,    49,    30,    45,    37,
-      38,    37,    38,     3,     4,     5,    16,    17,    27,    31,
-      33,    51,    60,    61,    63,    64,    66,    67,    32,    54,
-      55,    73,    67,    72,    30,     5,    50,    38,    33,    46,
-      72,    30,    44,    44,    31,    35,    62,    64,    64,    64,
-      60,    34,    51,    18,    19,    20,    16,    17,    33,    56,
-      32,    37,     5,    36,    51,    49,    34,    46,    46,    32,
-      60,    65,    60,    32,    34,    37,    52,    64,    64,    64,
-      66,    66,    10,    12,    13,    14,    15,    34,    38,    41,
-      56,    57,    58,    59,    60,    61,    73,    56,    55,    35,
-      62,    45,    34,    37,    47,    37,    32,    36,    51,    34,
-      31,    31,    38,    38,    38,    60,    34,    57,    38,    30,
-      36,    46,    34,    65,    62,    52,    67,    68,    69,    70,
-      71,    71,    38,    60,    62,    47,    21,    22,    23,    24,
-      25,    26,    28,    29,    32,    32,    38,    68,    68,    68,
-      68,    69,    69,    70,    71,    59,    59,    11,    59
+       0,     6,     7,     8,     9,    40,    41,    42,    43,    49,
+      54,    74,    74,     0,     0,    41,    41,     5,    51,     5,
+      44,    45,    30,    31,    35,    46,    37,    38,    50,    30,
+      46,    37,    38,    37,    38,     3,     4,     5,    16,    17,
+      27,    31,    33,    52,    61,    62,    64,    65,    67,    68,
+      32,    55,    56,    74,    68,    73,    30,     5,    51,    38,
+      33,    47,    73,    30,    45,    45,    31,    35,    63,    65,
+      65,    65,    61,    34,    52,    18,    19,    20,    16,    17,
+      33,    57,    32,    37,     5,    36,    52,    50,    34,    47,
+      47,    32,    61,    66,    61,    32,    34,    37,    53,    65,
+      65,    65,    67,    67,    10,    12,    13,    14,    15,    34,
+      38,    42,    57,    58,    59,    60,    61,    62,    74,    57,
+      56,    35,    63,    46,    34,    37,    48,    37,    32,    36,
+      52,    34,    31,    31,    38,    38,    38,    61,    34,    58,
+      38,    30,    36,    47,    34,    66,    63,    53,    68,    69,
+      70,    71,    72,    72,    38,    61,    63,    48,    21,    22,
+      23,    24,    25,    26,    28,    29,    32,    32,    38,    69,
+      69,    69,    69,    70,    70,    71,    72,    60,    60,    11,
+      60
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    39,    40,    40,    40,    40,    41,    41,    42,    42,
-      43,    43,    44,    44,    45,    45,    46,    46,    46,    46,
-      47,    47,    48,    48,    49,    49,    50,    50,    50,    50,
-      51,    51,    51,    51,    52,    52,    53,    53,    54,    54,
-      55,    55,    55,    55,    56,    56,    57,    57,    58,    58,
-      59,    59,    59,    59,    59,    59,    59,    59,    59,    59,
-      59,    60,    61,    61,    62,    62,    63,    63,    63,    63,
-      64,    64,    64,    64,    64,    64,    65,    65,    66,    66,
-      66,    66,    67,    67,    67,    68,    68,    68,    68,    68,
-      69,    69,    69,    70,    70,    71,    71,    72,    73,    73,
-      73
+       0,    39,    40,    41,    41,    41,    41,    42,    42,    43,
+      43,    44,    44,    45,    45,    46,    46,    47,    47,    47,
+      47,    48,    48,    49,    49,    50,    50,    51,    51,    51,
+      51,    52,    52,    52,    52,    53,    53,    54,    54,    55,
+      55,    56,    56,    56,    56,    57,    57,    58,    58,    59,
+      59,    60,    60,    60,    60,    60,    60,    60,    60,    60,
+      60,    60,    61,    62,    62,    63,    63,    64,    64,    64,
+      64,    65,    65,    65,    65,    65,    65,    66,    66,    67,
+      67,    67,    67,    68,    68,    68,    69,    69,    69,    69,
+      69,    70,    70,    70,    71,    71,    72,    72,    73,    74,
+      74,    74
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     2,     2,     1,     1,     1,     1,     4,     4,
-       3,     3,     3,     4,     3,     4,     1,     2,     3,     4,
-       2,     3,     3,     4,     2,     3,     1,     3,     2,     4,
-       1,     2,     3,     4,     2,     3,     5,     6,     1,     3,
-       2,     4,     3,     5,     3,     2,     1,     2,     1,     1,
-       4,     1,     2,     1,     5,     5,     7,     2,     2,     3,
-       2,     1,     1,     2,     3,     4,     3,     1,     1,     1,
-       1,     3,     4,     2,     2,     2,     1,     3,     1,     3,
-       3,     3,     1,     3,     3,     1,     3,     3,     3,     3,
-       1,     3,     3,     1,     3,     1,     3,     1,     1,     1,
-       1
+       0,     2,     2,     2,     2,     1,     1,     1,     1,     4,
+       4,     3,     3,     3,     4,     3,     4,     1,     2,     3,
+       4,     2,     3,     3,     4,     2,     3,     1,     3,     2,
+       4,     1,     2,     3,     4,     2,     3,     5,     6,     1,
+       3,     2,     4,     3,     5,     3,     2,     1,     2,     1,
+       1,     4,     1,     2,     1,     5,     5,     7,     2,     2,
+       3,     2,     1,     1,     2,     3,     4,     3,     1,     1,
+       1,     1,     3,     4,     2,     2,     2,     1,     3,     1,
+       3,     3,     3,     1,     3,     3,     1,     3,     3,     3,
+       3,     1,     3,     3,     1,     3,     1,     3,     1,     1,
+       1,     1
 };
 
 
@@ -1283,602 +1378,608 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* CompUnit: Decl CompUnit  */
+  case 2: /* program: CompUnit $end  */
 #line 43 "./src/lrparser.y"
+                        { showAst((yyvsp[-1].pAst), 0, 0); }
+#line 1385 "./build/lrparser.tab.c"
+    break;
+
+  case 3: /* CompUnit: Decl CompUnit  */
+#line 47 "./src/lrparser.y"
                         { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); root = (yyval.pAst); }
-#line 1290 "./build/lrparser.tab.c"
+#line 1391 "./build/lrparser.tab.c"
     break;
 
-  case 3: /* CompUnit: FuncDef CompUnit  */
-#line 44 "./src/lrparser.y"
+  case 4: /* CompUnit: FuncDef CompUnit  */
+#line 48 "./src/lrparser.y"
                            { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); root = (yyval.pAst); }
-#line 1296 "./build/lrparser.tab.c"
+#line 1397 "./build/lrparser.tab.c"
     break;
 
-  case 4: /* CompUnit: Decl  */
-#line 45 "./src/lrparser.y"
+  case 5: /* CompUnit: Decl  */
+#line 49 "./src/lrparser.y"
                { (yyval.pAst) = (yyvsp[0].pAst); root = (yyval.pAst); }
-#line 1302 "./build/lrparser.tab.c"
+#line 1403 "./build/lrparser.tab.c"
     break;
 
-  case 5: /* CompUnit: FuncDef  */
-#line 46 "./src/lrparser.y"
-                  { (yyval.pAst) = (yyvsp[0].pAst); root = (yyval.pAst); }
-#line 1308 "./build/lrparser.tab.c"
-    break;
-
-  case 6: /* Decl: ConstDecl  */
+  case 6: /* CompUnit: FuncDef  */
 #line 50 "./src/lrparser.y"
+                  { (yyval.pAst) = (yyvsp[0].pAst); root = (yyval.pAst); }
+#line 1409 "./build/lrparser.tab.c"
+    break;
+
+  case 7: /* Decl: ConstDecl  */
+#line 54 "./src/lrparser.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1314 "./build/lrparser.tab.c"
+#line 1415 "./build/lrparser.tab.c"
     break;
 
-  case 7: /* Decl: VarDecl  */
-#line 51 "./src/lrparser.y"
-              { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1320 "./build/lrparser.tab.c"
-    break;
-
-  case 8: /* ConstDecl: Y_CONST Type ConstDef Y_SEMICOLON  */
+  case 8: /* Decl: VarDecl  */
 #line 55 "./src/lrparser.y"
-                                             { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
-#line 1326 "./build/lrparser.tab.c"
-    break;
-
-  case 9: /* ConstDecl: Y_CONST Type ConstDefs Y_SEMICOLON  */
-#line 56 "./src/lrparser.y"
-                                              { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
-#line 1332 "./build/lrparser.tab.c"
-    break;
-
-  case 10: /* ConstDefs: ConstDef Y_COMMA ConstDef  */
-#line 60 "./src/lrparser.y"
-                                     { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
-#line 1338 "./build/lrparser.tab.c"
-    break;
-
-  case 11: /* ConstDefs: ConstDefs Y_COMMA ConstDef  */
-#line 61 "./src/lrparser.y"
-                                      { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
-#line 1344 "./build/lrparser.tab.c"
-    break;
-
-  case 12: /* ConstDef: Y_ID Y_ASSIGN ConstInitVal  */
-#line 65 "./src/lrparser.y"
-                                     { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-2].sValue), NULL, NULL), (yyvsp[0].pAst)); }
-#line 1350 "./build/lrparser.tab.c"
-    break;
-
-  case 13: /* ConstDef: Y_ID ConstExps Y_ASSIGN ConstInitVal  */
-#line 66 "./src/lrparser.y"
-                                               { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-3].sValue), (yyvsp[-2].pAst), NULL), (yyvsp[0].pAst)); }
-#line 1356 "./build/lrparser.tab.c"
-    break;
-
-  case 14: /* ConstExps: Y_LSQUARE ConstExp Y_RSQUARE  */
-#line 70 "./src/lrparser.y"
-                                        { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1362 "./build/lrparser.tab.c"
-    break;
-
-  case 15: /* ConstExps: Y_LSQUARE ConstExp Y_RSQUARE ConstExps  */
-#line 71 "./src/lrparser.y"
-                                                  { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1368 "./build/lrparser.tab.c"
-    break;
-
-  case 16: /* ConstInitVal: ConstExp  */
-#line 75 "./src/lrparser.y"
-                       { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1374 "./build/lrparser.tab.c"
-    break;
-
-  case 17: /* ConstInitVal: Y_LBRACKET Y_RBRACKET  */
-#line 76 "./src/lrparser.y"
-                                    { (yyval.pAst) = NULL; }
-#line 1380 "./build/lrparser.tab.c"
-    break;
-
-  case 18: /* ConstInitVal: Y_LBRACKET ConstInitVal Y_RBRACKET  */
-#line 77 "./src/lrparser.y"
-                                                 { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1386 "./build/lrparser.tab.c"
-    break;
-
-  case 19: /* ConstInitVal: Y_LBRACKET ConstInitVal ConstInitVals Y_RBRACKET  */
-#line 78 "./src/lrparser.y"
-                                                               { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
-#line 1392 "./build/lrparser.tab.c"
-    break;
-
-  case 20: /* ConstInitVals: Y_COMMA ConstInitVal  */
-#line 82 "./src/lrparser.y"
-                                    { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1398 "./build/lrparser.tab.c"
-    break;
-
-  case 21: /* ConstInitVals: Y_COMMA ConstInitVal ConstInitVals  */
-#line 83 "./src/lrparser.y"
-                                                  { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
-#line 1404 "./build/lrparser.tab.c"
-    break;
-
-  case 22: /* VarDecl: Type VarDef Y_SEMICOLON  */
-#line 87 "./src/lrparser.y"
-                                 { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
-#line 1410 "./build/lrparser.tab.c"
-    break;
-
-  case 23: /* VarDecl: Type VarDef VarDecls Y_SEMICOLON  */
-#line 88 "./src/lrparser.y"
-                                          { (yyval.pAst) = ParaDecl((yyvsp[-3].pAst), (yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
-#line 1416 "./build/lrparser.tab.c"
-    break;
-
-  case 24: /* VarDecls: Y_COMMA VarDef  */
-#line 92 "./src/lrparser.y"
-                         { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1422 "./build/lrparser.tab.c"
-    break;
-
-  case 25: /* VarDecls: Y_COMMA VarDef VarDecls  */
-#line 93 "./src/lrparser.y"
-                                  { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
-#line 1428 "./build/lrparser.tab.c"
-    break;
-
-  case 26: /* VarDef: Y_ID  */
-#line 97 "./src/lrparser.y"
-             { (yyval.pAst) = DeclRefExp((yyvsp[0].sValue), NULL, NULL); }
-#line 1434 "./build/lrparser.tab.c"
-    break;
-
-  case 27: /* VarDef: Y_ID Y_ASSIGN InitVal  */
-#line 98 "./src/lrparser.y"
-                              { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-2].sValue), NULL, NULL), (yyvsp[0].pAst)); }
-#line 1440 "./build/lrparser.tab.c"
-    break;
-
-  case 28: /* VarDef: Y_ID ConstExps  */
-#line 99 "./src/lrparser.y"
-                       { (yyval.pAst) = DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL); }
-#line 1446 "./build/lrparser.tab.c"
-    break;
-
-  case 29: /* VarDef: Y_ID ConstExps Y_ASSIGN InitVal  */
-#line 100 "./src/lrparser.y"
-                                        { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-3].sValue), (yyvsp[-2].pAst), NULL), (yyvsp[0].pAst)); }
-#line 1452 "./build/lrparser.tab.c"
-    break;
-
-  case 30: /* InitVal: Exp  */
-#line 104 "./src/lrparser.y"
-             { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1458 "./build/lrparser.tab.c"
-    break;
-
-  case 31: /* InitVal: Y_LBRACKET Y_RBRACKET  */
-#line 105 "./src/lrparser.y"
-                               { (yyval.pAst) = NULL; }
-#line 1464 "./build/lrparser.tab.c"
-    break;
-
-  case 32: /* InitVal: Y_LBRACKET InitVal Y_RBRACKET  */
-#line 106 "./src/lrparser.y"
-                                       { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1470 "./build/lrparser.tab.c"
-    break;
-
-  case 33: /* InitVal: Y_LBRACKET InitVal InitVals Y_RBRACKET  */
-#line 107 "./src/lrparser.y"
-                                                { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
-#line 1476 "./build/lrparser.tab.c"
-    break;
-
-  case 34: /* InitVals: Y_COMMA InitVal  */
-#line 111 "./src/lrparser.y"
-                          { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1482 "./build/lrparser.tab.c"
-    break;
-
-  case 35: /* InitVals: Y_COMMA InitVal InitVals  */
-#line 112 "./src/lrparser.y"
-                                   { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
-#line 1488 "./build/lrparser.tab.c"
-    break;
-
-  case 36: /* FuncDef: Type Y_ID Y_LPAR Y_RPAR Block  */
-#line 116 "./src/lrparser.y"
-                                       { (yyval.pAst) = FuncDef((yyvsp[-4].pAst), (yyvsp[-3].sValue), NULL, (yyvsp[0].pAst)); }
-#line 1494 "./build/lrparser.tab.c"
-    break;
-
-  case 37: /* FuncDef: Type Y_ID Y_LPAR FuncParams Y_RPAR Block  */
-#line 117 "./src/lrparser.y"
-                                                  { (yyval.pAst) = FuncDef((yyvsp[-5].pAst), (yyvsp[-4].sValue), (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1500 "./build/lrparser.tab.c"
-    break;
-
-  case 38: /* FuncParams: FuncParam  */
-#line 121 "./src/lrparser.y"
-                      { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1506 "./build/lrparser.tab.c"
-    break;
-
-  case 39: /* FuncParams: FuncParams Y_COMMA FuncParam  */
-#line 122 "./src/lrparser.y"
-                                         { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1512 "./build/lrparser.tab.c"
-    break;
-
-  case 40: /* FuncParam: Type Y_ID  */
-#line 126 "./src/lrparser.y"
-                     { (yyval.pAst) = ParaDecl((yyvsp[-1].pAst), DeclRefExp((yyvsp[0].sValue), NULL, NULL), NULL); }
-#line 1518 "./build/lrparser.tab.c"
-    break;
-
-  case 41: /* FuncParam: Type Y_ID Y_LSQUARE Y_RSQUARE  */
-#line 127 "./src/lrparser.y"
-                                         { (yyval.pAst) = ParaDecl((yyvsp[-3].pAst), DeclRefExp((yyvsp[-2].sValue), NULL, NULL), NULL); }
-#line 1524 "./build/lrparser.tab.c"
-    break;
-
-  case 42: /* FuncParam: Type Y_ID ArraySubscripts  */
-#line 128 "./src/lrparser.y"
-                                     { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL), NULL); }
-#line 1530 "./build/lrparser.tab.c"
-    break;
-
-  case 43: /* FuncParam: Type Y_ID Y_LSQUARE Y_RSQUARE ArraySubscripts  */
-#line 129 "./src/lrparser.y"
-                                                         { (yyval.pAst) = ParaDecl((yyvsp[-4].pAst), DeclRefExp((yyvsp[-3].sValue), (yyvsp[0].pAst), NULL), NULL); }
-#line 1536 "./build/lrparser.tab.c"
-    break;
-
-  case 44: /* Block: Y_LBRACKET BlockItems Y_RBRACKET  */
-#line 133 "./src/lrparser.y"
-                                        { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1542 "./build/lrparser.tab.c"
-    break;
-
-  case 45: /* Block: Y_LBRACKET Y_RBRACKET  */
-#line 134 "./src/lrparser.y"
-                             { (yyval.pAst) = NULL; }
-#line 1548 "./build/lrparser.tab.c"
-    break;
-
-  case 46: /* BlockItems: BlockItem  */
-#line 138 "./src/lrparser.y"
-                      { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1554 "./build/lrparser.tab.c"
-    break;
-
-  case 47: /* BlockItems: BlockItem BlockItems  */
-#line 139 "./src/lrparser.y"
-                                 { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
-#line 1560 "./build/lrparser.tab.c"
-    break;
-
-  case 48: /* BlockItem: Decl  */
-#line 143 "./src/lrparser.y"
-                { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1566 "./build/lrparser.tab.c"
-    break;
-
-  case 49: /* BlockItem: Stmt  */
-#line 144 "./src/lrparser.y"
-                { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1572 "./build/lrparser.tab.c"
-    break;
-
-  case 50: /* Stmt: LVal Y_ASSIGN Exp Y_SEMICOLON  */
-#line 148 "./src/lrparser.y"
-                                    { (yyval.pAst) = BinaryOper(Y_ASSIGN, (yyvsp[-3].pAst), (yyvsp[-1].pAst)); }
-#line 1578 "./build/lrparser.tab.c"
-    break;
-
-  case 51: /* Stmt: Y_SEMICOLON  */
-#line 149 "./src/lrparser.y"
-                  { (yyval.pAst) = NULL; }
-#line 1584 "./build/lrparser.tab.c"
-    break;
-
-  case 52: /* Stmt: Exp Y_SEMICOLON  */
-#line 150 "./src/lrparser.y"
-                      { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1590 "./build/lrparser.tab.c"
-    break;
-
-  case 53: /* Stmt: Block  */
-#line 151 "./src/lrparser.y"
-            { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1596 "./build/lrparser.tab.c"
-    break;
-
-  case 54: /* Stmt: Y_WHILE Y_LPAR LOrExp Y_RPAR Stmt  */
-#line 152 "./src/lrparser.y"
-                                        { (yyval.pAst) = WhileStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1602 "./build/lrparser.tab.c"
-    break;
-
-  case 55: /* Stmt: Y_IF Y_LPAR LOrExp Y_RPAR Stmt  */
-#line 153 "./src/lrparser.y"
-                                     { (yyval.pAst) = IfStmt((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
-#line 1608 "./build/lrparser.tab.c"
-    break;
-
-  case 56: /* Stmt: Y_IF Y_LPAR LOrExp Y_RPAR Stmt Y_ELSE Stmt  */
-#line 154 "./src/lrparser.y"
-                                                 { (yyval.pAst) = IfStmt((yyvsp[-4].pAst), (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1614 "./build/lrparser.tab.c"
-    break;
-
-  case 57: /* Stmt: Y_BREAK Y_SEMICOLON  */
-#line 155 "./src/lrparser.y"
-                          { (yyval.pAst) = BreakStmt(); }
-#line 1620 "./build/lrparser.tab.c"
-    break;
-
-  case 58: /* Stmt: Y_CONTINUE Y_SEMICOLON  */
-#line 156 "./src/lrparser.y"
-                             { (yyval.pAst) = ContinueStmt(); }
-#line 1626 "./build/lrparser.tab.c"
-    break;
-
-  case 59: /* Stmt: Y_RETURN Exp Y_SEMICOLON  */
-#line 157 "./src/lrparser.y"
-                               { (yyval.pAst) = ReturnStmt((yyvsp[-1].pAst), NULL); }
-#line 1632 "./build/lrparser.tab.c"
-    break;
-
-  case 60: /* Stmt: Y_RETURN Y_SEMICOLON  */
-#line 158 "./src/lrparser.y"
-                           { (yyval.pAst) = ReturnStmt(NULL, NULL); }
-#line 1638 "./build/lrparser.tab.c"
-    break;
-
-  case 61: /* Exp: AddExp  */
-#line 162 "./src/lrparser.y"
-            { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1644 "./build/lrparser.tab.c"
-    break;
-
-  case 62: /* LVal: Y_ID  */
-#line 166 "./src/lrparser.y"
-           { (yyval.pAst) = DeclRefExp((yyvsp[0].sValue), NULL, NULL); }
-#line 1650 "./build/lrparser.tab.c"
-    break;
-
-  case 63: /* LVal: Y_ID ArraySubscripts  */
-#line 167 "./src/lrparser.y"
-                           { (yyval.pAst) = DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL); }
-#line 1656 "./build/lrparser.tab.c"
-    break;
-
-  case 64: /* ArraySubscripts: Y_LSQUARE Exp Y_RSQUARE  */
-#line 171 "./src/lrparser.y"
-                                         { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1662 "./build/lrparser.tab.c"
-    break;
-
-  case 65: /* ArraySubscripts: Y_LSQUARE Exp Y_RSQUARE ArraySubscripts  */
-#line 172 "./src/lrparser.y"
-                                                         { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1668 "./build/lrparser.tab.c"
-    break;
-
-  case 66: /* PrimaryExp: Y_LPAR Exp Y_RPAR  */
-#line 176 "./src/lrparser.y"
-                              { (yyval.pAst) = (yyvsp[-1].pAst); }
-#line 1674 "./build/lrparser.tab.c"
-    break;
-
-  case 67: /* PrimaryExp: LVal  */
-#line 177 "./src/lrparser.y"
-                 { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1680 "./build/lrparser.tab.c"
-    break;
-
-  case 68: /* PrimaryExp: num_INT  */
-#line 178 "./src/lrparser.y"
-                    { (yyval.pAst) = newInt((yyvsp[0].iValue)); }
-#line 1686 "./build/lrparser.tab.c"
-    break;
-
-  case 69: /* PrimaryExp: num_FLOAT  */
-#line 179 "./src/lrparser.y"
-                      { (yyval.pAst) = newFloat((yyvsp[0].fValue)); }
-#line 1692 "./build/lrparser.tab.c"
-    break;
-
-  case 70: /* UnaryExp: PrimaryExp  */
-#line 183 "./src/lrparser.y"
-                     { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1698 "./build/lrparser.tab.c"
-    break;
-
-  case 71: /* UnaryExp: Y_ID Y_LPAR Y_RPAR  */
-#line 184 "./src/lrparser.y"
-                             { (yyval.pAst) = DeclRefExp((yyvsp[-2].sValue), NULL, NULL); }
-#line 1704 "./build/lrparser.tab.c"
-    break;
-
-  case 72: /* UnaryExp: Y_ID Y_LPAR CallParams Y_RPAR  */
-#line 185 "./src/lrparser.y"
-                                        { (yyval.pAst) = DeclRefExp((yyvsp[-3].sValue), (yyvsp[-1].pAst), NULL); }
-#line 1710 "./build/lrparser.tab.c"
-    break;
-
-  case 73: /* UnaryExp: Y_ADD UnaryExp  */
-#line 186 "./src/lrparser.y"
-                         { (yyval.pAst) = UnaryOper(Y_ADD, (yyvsp[0].pAst)); }
-#line 1716 "./build/lrparser.tab.c"
-    break;
-
-  case 74: /* UnaryExp: Y_SUB UnaryExp  */
-#line 187 "./src/lrparser.y"
-                         { (yyval.pAst) = UnaryOper(Y_SUB, (yyvsp[0].pAst)); }
-#line 1722 "./build/lrparser.tab.c"
-    break;
-
-  case 75: /* UnaryExp: Y_NOT UnaryExp  */
-#line 188 "./src/lrparser.y"
-                         { (yyval.pAst) = UnaryOper(Y_NOT, (yyvsp[0].pAst)); }
-#line 1728 "./build/lrparser.tab.c"
-    break;
-
-  case 76: /* CallParams: Exp  */
-#line 192 "./src/lrparser.y"
-                { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1734 "./build/lrparser.tab.c"
-    break;
-
-  case 77: /* CallParams: Exp Y_COMMA CallParams  */
-#line 193 "./src/lrparser.y"
-                                   { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1740 "./build/lrparser.tab.c"
-    break;
-
-  case 78: /* MulExp: UnaryExp  */
-#line 197 "./src/lrparser.y"
-                 { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1746 "./build/lrparser.tab.c"
-    break;
-
-  case 79: /* MulExp: MulExp Y_MUL UnaryExp  */
-#line 198 "./src/lrparser.y"
-                              { (yyval.pAst) = BinaryOper(Y_MUL, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1752 "./build/lrparser.tab.c"
-    break;
-
-  case 80: /* MulExp: MulExp Y_DIV UnaryExp  */
-#line 199 "./src/lrparser.y"
-                              { (yyval.pAst) = BinaryOper(Y_DIV, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1758 "./build/lrparser.tab.c"
-    break;
-
-  case 81: /* MulExp: MulExp Y_MODULO UnaryExp  */
-#line 200 "./src/lrparser.y"
-                                 { (yyval.pAst) = BinaryOper(Y_MODULO, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1764 "./build/lrparser.tab.c"
-    break;
-
-  case 82: /* AddExp: MulExp  */
-#line 204 "./src/lrparser.y"
-               { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1770 "./build/lrparser.tab.c"
-    break;
-
-  case 83: /* AddExp: AddExp Y_ADD MulExp  */
-#line 205 "./src/lrparser.y"
-                            { (yyval.pAst) = BinaryOper(Y_ADD, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1776 "./build/lrparser.tab.c"
-    break;
-
-  case 84: /* AddExp: AddExp Y_SUB MulExp  */
-#line 206 "./src/lrparser.y"
-                            { (yyval.pAst) = BinaryOper(Y_SUB, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1782 "./build/lrparser.tab.c"
-    break;
-
-  case 85: /* RelExp: AddExp  */
-#line 210 "./src/lrparser.y"
-               { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1788 "./build/lrparser.tab.c"
-    break;
-
-  case 86: /* RelExp: AddExp Y_LESS RelExp  */
-#line 211 "./src/lrparser.y"
-                             { (yyval.pAst) = BinaryOper(Y_LESS, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1794 "./build/lrparser.tab.c"
-    break;
-
-  case 87: /* RelExp: AddExp Y_GREAT RelExp  */
-#line 212 "./src/lrparser.y"
-                              { (yyval.pAst) = BinaryOper(Y_GREAT, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1800 "./build/lrparser.tab.c"
-    break;
-
-  case 88: /* RelExp: AddExp Y_LESSEQ RelExp  */
-#line 213 "./src/lrparser.y"
-                               { (yyval.pAst) = BinaryOper(Y_LESSEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1806 "./build/lrparser.tab.c"
-    break;
-
-  case 89: /* RelExp: AddExp Y_GREATEQ RelExp  */
-#line 214 "./src/lrparser.y"
-                                { (yyval.pAst) = BinaryOper(Y_GREATEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1812 "./build/lrparser.tab.c"
-    break;
-
-  case 90: /* EqExp: RelExp  */
-#line 218 "./src/lrparser.y"
               { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1818 "./build/lrparser.tab.c"
+#line 1421 "./build/lrparser.tab.c"
     break;
 
-  case 91: /* EqExp: RelExp Y_EQ EqExp  */
-#line 219 "./src/lrparser.y"
-                         { (yyval.pAst) = BinaryOper(Y_EQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1824 "./build/lrparser.tab.c"
+  case 9: /* ConstDecl: Y_CONST Type ConstDef Y_SEMICOLON  */
+#line 59 "./src/lrparser.y"
+                                             { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
+#line 1427 "./build/lrparser.tab.c"
     break;
 
-  case 92: /* EqExp: RelExp Y_NOTEQ EqExp  */
-#line 220 "./src/lrparser.y"
-                            { (yyval.pAst) = BinaryOper(Y_NOTEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1830 "./build/lrparser.tab.c"
+  case 10: /* ConstDecl: Y_CONST Type ConstDefs Y_SEMICOLON  */
+#line 60 "./src/lrparser.y"
+                                              { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
+#line 1433 "./build/lrparser.tab.c"
     break;
 
-  case 93: /* LAndExp: EqExp  */
-#line 224 "./src/lrparser.y"
-               { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1836 "./build/lrparser.tab.c"
+  case 11: /* ConstDefs: ConstDef Y_COMMA ConstDef  */
+#line 64 "./src/lrparser.y"
+                                     { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
+#line 1439 "./build/lrparser.tab.c"
     break;
 
-  case 94: /* LAndExp: EqExp Y_AND LAndExp  */
-#line 225 "./src/lrparser.y"
-                             { (yyval.pAst) = BinaryOper(Y_AND, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1842 "./build/lrparser.tab.c"
+  case 12: /* ConstDefs: ConstDefs Y_COMMA ConstDef  */
+#line 65 "./src/lrparser.y"
+                                      { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
+#line 1445 "./build/lrparser.tab.c"
     break;
 
-  case 95: /* LOrExp: LAndExp  */
-#line 229 "./src/lrparser.y"
+  case 13: /* ConstDef: Y_ID Y_ASSIGN ConstInitVal  */
+#line 69 "./src/lrparser.y"
+                                     { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-2].sValue), NULL, NULL), (yyvsp[0].pAst)); }
+#line 1451 "./build/lrparser.tab.c"
+    break;
+
+  case 14: /* ConstDef: Y_ID ConstExps Y_ASSIGN ConstInitVal  */
+#line 70 "./src/lrparser.y"
+                                               { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-3].sValue), (yyvsp[-2].pAst), NULL), (yyvsp[0].pAst)); }
+#line 1457 "./build/lrparser.tab.c"
+    break;
+
+  case 15: /* ConstExps: Y_LSQUARE ConstExp Y_RSQUARE  */
+#line 74 "./src/lrparser.y"
+                                        { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1463 "./build/lrparser.tab.c"
+    break;
+
+  case 16: /* ConstExps: Y_LSQUARE ConstExp Y_RSQUARE ConstExps  */
+#line 75 "./src/lrparser.y"
+                                                  { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1469 "./build/lrparser.tab.c"
+    break;
+
+  case 17: /* ConstInitVal: ConstExp  */
+#line 79 "./src/lrparser.y"
+                       { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1475 "./build/lrparser.tab.c"
+    break;
+
+  case 18: /* ConstInitVal: Y_LBRACKET Y_RBRACKET  */
+#line 80 "./src/lrparser.y"
+                                    { (yyval.pAst) = NULL; }
+#line 1481 "./build/lrparser.tab.c"
+    break;
+
+  case 19: /* ConstInitVal: Y_LBRACKET ConstInitVal Y_RBRACKET  */
+#line 81 "./src/lrparser.y"
+                                                 { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1487 "./build/lrparser.tab.c"
+    break;
+
+  case 20: /* ConstInitVal: Y_LBRACKET ConstInitVal ConstInitVals Y_RBRACKET  */
+#line 82 "./src/lrparser.y"
+                                                               { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
+#line 1493 "./build/lrparser.tab.c"
+    break;
+
+  case 21: /* ConstInitVals: Y_COMMA ConstInitVal  */
+#line 86 "./src/lrparser.y"
+                                    { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1499 "./build/lrparser.tab.c"
+    break;
+
+  case 22: /* ConstInitVals: Y_COMMA ConstInitVal ConstInitVals  */
+#line 87 "./src/lrparser.y"
+                                                  { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
+#line 1505 "./build/lrparser.tab.c"
+    break;
+
+  case 23: /* VarDecl: Type VarDef Y_SEMICOLON  */
+#line 91 "./src/lrparser.y"
+                                 { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), (yyvsp[-1].pAst), NULL); }
+#line 1511 "./build/lrparser.tab.c"
+    break;
+
+  case 24: /* VarDecl: Type VarDef VarDecls Y_SEMICOLON  */
+#line 92 "./src/lrparser.y"
+                                          { (yyval.pAst) = ParaDecl((yyvsp[-3].pAst), (yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
+#line 1517 "./build/lrparser.tab.c"
+    break;
+
+  case 25: /* VarDecls: Y_COMMA VarDef  */
+#line 96 "./src/lrparser.y"
+                         { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1523 "./build/lrparser.tab.c"
+    break;
+
+  case 26: /* VarDecls: Y_COMMA VarDef VarDecls  */
+#line 97 "./src/lrparser.y"
+                                  { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
+#line 1529 "./build/lrparser.tab.c"
+    break;
+
+  case 27: /* VarDef: Y_ID  */
+#line 101 "./src/lrparser.y"
+             { (yyval.pAst) = DeclRefExp((yyvsp[0].sValue), NULL, NULL); }
+#line 1535 "./build/lrparser.tab.c"
+    break;
+
+  case 28: /* VarDef: Y_ID Y_ASSIGN InitVal  */
+#line 102 "./src/lrparser.y"
+                              { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-2].sValue), NULL, NULL), (yyvsp[0].pAst)); }
+#line 1541 "./build/lrparser.tab.c"
+    break;
+
+  case 29: /* VarDef: Y_ID ConstExps  */
+#line 103 "./src/lrparser.y"
+                       { (yyval.pAst) = DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL); }
+#line 1547 "./build/lrparser.tab.c"
+    break;
+
+  case 30: /* VarDef: Y_ID ConstExps Y_ASSIGN InitVal  */
+#line 104 "./src/lrparser.y"
+                                        { (yyval.pAst) = BinaryOper(Y_ASSIGN, DeclRefExp((yyvsp[-3].sValue), (yyvsp[-2].pAst), NULL), (yyvsp[0].pAst)); }
+#line 1553 "./build/lrparser.tab.c"
+    break;
+
+  case 31: /* InitVal: Exp  */
+#line 108 "./src/lrparser.y"
+             { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1559 "./build/lrparser.tab.c"
+    break;
+
+  case 32: /* InitVal: Y_LBRACKET Y_RBRACKET  */
+#line 109 "./src/lrparser.y"
+                               { (yyval.pAst) = NULL; }
+#line 1565 "./build/lrparser.tab.c"
+    break;
+
+  case 33: /* InitVal: Y_LBRACKET InitVal Y_RBRACKET  */
+#line 110 "./src/lrparser.y"
+                                       { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1571 "./build/lrparser.tab.c"
+    break;
+
+  case 34: /* InitVal: Y_LBRACKET InitVal InitVals Y_RBRACKET  */
+#line 111 "./src/lrparser.y"
+                                                { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[-1].pAst)); }
+#line 1577 "./build/lrparser.tab.c"
+    break;
+
+  case 35: /* InitVals: Y_COMMA InitVal  */
+#line 115 "./src/lrparser.y"
+                          { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1583 "./build/lrparser.tab.c"
+    break;
+
+  case 36: /* InitVals: Y_COMMA InitVal InitVals  */
+#line 116 "./src/lrparser.y"
+                                   { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
+#line 1589 "./build/lrparser.tab.c"
+    break;
+
+  case 37: /* FuncDef: Type Y_ID Y_LPAR Y_RPAR Block  */
+#line 120 "./src/lrparser.y"
+                                       { (yyval.pAst) = FuncDef((yyvsp[-4].pAst), (yyvsp[-3].sValue), NULL, (yyvsp[0].pAst)); }
+#line 1595 "./build/lrparser.tab.c"
+    break;
+
+  case 38: /* FuncDef: Type Y_ID Y_LPAR FuncParams Y_RPAR Block  */
+#line 121 "./src/lrparser.y"
+                                                  { (yyval.pAst) = FuncDef((yyvsp[-5].pAst), (yyvsp[-4].sValue), (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1601 "./build/lrparser.tab.c"
+    break;
+
+  case 39: /* FuncParams: FuncParam  */
+#line 125 "./src/lrparser.y"
+                      { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1607 "./build/lrparser.tab.c"
+    break;
+
+  case 40: /* FuncParams: FuncParams Y_COMMA FuncParam  */
+#line 126 "./src/lrparser.y"
+                                         { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1613 "./build/lrparser.tab.c"
+    break;
+
+  case 41: /* FuncParam: Type Y_ID  */
+#line 130 "./src/lrparser.y"
+                     { (yyval.pAst) = ParaDecl((yyvsp[-1].pAst), DeclRefExp((yyvsp[0].sValue), NULL, NULL), NULL); }
+#line 1619 "./build/lrparser.tab.c"
+    break;
+
+  case 42: /* FuncParam: Type Y_ID Y_LSQUARE Y_RSQUARE  */
+#line 131 "./src/lrparser.y"
+                                         { (yyval.pAst) = ParaDecl((yyvsp[-3].pAst), DeclRefExp((yyvsp[-2].sValue), NULL, NULL), NULL); }
+#line 1625 "./build/lrparser.tab.c"
+    break;
+
+  case 43: /* FuncParam: Type Y_ID ArraySubscripts  */
+#line 132 "./src/lrparser.y"
+                                     { (yyval.pAst) = ParaDecl((yyvsp[-2].pAst), DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL), NULL); }
+#line 1631 "./build/lrparser.tab.c"
+    break;
+
+  case 44: /* FuncParam: Type Y_ID Y_LSQUARE Y_RSQUARE ArraySubscripts  */
+#line 133 "./src/lrparser.y"
+                                                         { (yyval.pAst) = ParaDecl((yyvsp[-4].pAst), DeclRefExp((yyvsp[-3].sValue), (yyvsp[0].pAst), NULL), NULL); }
+#line 1637 "./build/lrparser.tab.c"
+    break;
+
+  case 45: /* Block: Y_LBRACKET BlockItems Y_RBRACKET  */
+#line 137 "./src/lrparser.y"
+                                        { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1643 "./build/lrparser.tab.c"
+    break;
+
+  case 46: /* Block: Y_LBRACKET Y_RBRACKET  */
+#line 138 "./src/lrparser.y"
+                             { (yyval.pAst) = NULL; }
+#line 1649 "./build/lrparser.tab.c"
+    break;
+
+  case 47: /* BlockItems: BlockItem  */
+#line 142 "./src/lrparser.y"
+                      { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1655 "./build/lrparser.tab.c"
+    break;
+
+  case 48: /* BlockItems: BlockItem BlockItems  */
+#line 143 "./src/lrparser.y"
+                                 { (yyval.pAst) = CompoundStmt((yyvsp[-1].pAst), (yyvsp[0].pAst)); }
+#line 1661 "./build/lrparser.tab.c"
+    break;
+
+  case 49: /* BlockItem: Decl  */
+#line 147 "./src/lrparser.y"
                 { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1848 "./build/lrparser.tab.c"
+#line 1667 "./build/lrparser.tab.c"
     break;
 
-  case 96: /* LOrExp: LAndExp Y_OR LOrExp  */
-#line 230 "./src/lrparser.y"
-                            { (yyval.pAst) = BinaryOper(Y_OR, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
-#line 1854 "./build/lrparser.tab.c"
+  case 50: /* BlockItem: Stmt  */
+#line 148 "./src/lrparser.y"
+                { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1673 "./build/lrparser.tab.c"
     break;
 
-  case 97: /* ConstExp: AddExp  */
-#line 234 "./src/lrparser.y"
+  case 51: /* Stmt: LVal Y_ASSIGN Exp Y_SEMICOLON  */
+#line 152 "./src/lrparser.y"
+                                    { (yyval.pAst) = BinaryOper(Y_ASSIGN, (yyvsp[-3].pAst), (yyvsp[-1].pAst)); }
+#line 1679 "./build/lrparser.tab.c"
+    break;
+
+  case 52: /* Stmt: Y_SEMICOLON  */
+#line 153 "./src/lrparser.y"
+                  { (yyval.pAst) = NULL; }
+#line 1685 "./build/lrparser.tab.c"
+    break;
+
+  case 53: /* Stmt: Exp Y_SEMICOLON  */
+#line 154 "./src/lrparser.y"
+                      { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1691 "./build/lrparser.tab.c"
+    break;
+
+  case 54: /* Stmt: Block  */
+#line 155 "./src/lrparser.y"
+            { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1697 "./build/lrparser.tab.c"
+    break;
+
+  case 55: /* Stmt: Y_WHILE Y_LPAR LOrExp Y_RPAR Stmt  */
+#line 156 "./src/lrparser.y"
+                                        { (yyval.pAst) = WhileStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1703 "./build/lrparser.tab.c"
+    break;
+
+  case 56: /* Stmt: Y_IF Y_LPAR LOrExp Y_RPAR Stmt  */
+#line 157 "./src/lrparser.y"
+                                     { (yyval.pAst) = IfStmt((yyvsp[-2].pAst), (yyvsp[0].pAst), NULL); }
+#line 1709 "./build/lrparser.tab.c"
+    break;
+
+  case 57: /* Stmt: Y_IF Y_LPAR LOrExp Y_RPAR Stmt Y_ELSE Stmt  */
+#line 158 "./src/lrparser.y"
+                                                 { (yyval.pAst) = IfStmt((yyvsp[-4].pAst), (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1715 "./build/lrparser.tab.c"
+    break;
+
+  case 58: /* Stmt: Y_BREAK Y_SEMICOLON  */
+#line 159 "./src/lrparser.y"
+                          { (yyval.pAst) = BreakStmt(); }
+#line 1721 "./build/lrparser.tab.c"
+    break;
+
+  case 59: /* Stmt: Y_CONTINUE Y_SEMICOLON  */
+#line 160 "./src/lrparser.y"
+                             { (yyval.pAst) = ContinueStmt(); }
+#line 1727 "./build/lrparser.tab.c"
+    break;
+
+  case 60: /* Stmt: Y_RETURN Exp Y_SEMICOLON  */
+#line 161 "./src/lrparser.y"
+                               { (yyval.pAst) = ReturnStmt((yyvsp[-1].pAst), NULL); }
+#line 1733 "./build/lrparser.tab.c"
+    break;
+
+  case 61: /* Stmt: Y_RETURN Y_SEMICOLON  */
+#line 162 "./src/lrparser.y"
+                           { (yyval.pAst) = ReturnStmt(NULL, NULL); }
+#line 1739 "./build/lrparser.tab.c"
+    break;
+
+  case 62: /* Exp: AddExp  */
+#line 166 "./src/lrparser.y"
+            { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1745 "./build/lrparser.tab.c"
+    break;
+
+  case 63: /* LVal: Y_ID  */
+#line 170 "./src/lrparser.y"
+           { (yyval.pAst) = DeclRefExp((yyvsp[0].sValue), NULL, NULL); }
+#line 1751 "./build/lrparser.tab.c"
+    break;
+
+  case 64: /* LVal: Y_ID ArraySubscripts  */
+#line 171 "./src/lrparser.y"
+                           { (yyval.pAst) = DeclRefExp((yyvsp[-1].sValue), (yyvsp[0].pAst), NULL); }
+#line 1757 "./build/lrparser.tab.c"
+    break;
+
+  case 65: /* ArraySubscripts: Y_LSQUARE Exp Y_RSQUARE  */
+#line 175 "./src/lrparser.y"
+                                         { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1763 "./build/lrparser.tab.c"
+    break;
+
+  case 66: /* ArraySubscripts: Y_LSQUARE Exp Y_RSQUARE ArraySubscripts  */
+#line 176 "./src/lrparser.y"
+                                                         { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1769 "./build/lrparser.tab.c"
+    break;
+
+  case 67: /* PrimaryExp: Y_LPAR Exp Y_RPAR  */
+#line 180 "./src/lrparser.y"
+                              { (yyval.pAst) = (yyvsp[-1].pAst); }
+#line 1775 "./build/lrparser.tab.c"
+    break;
+
+  case 68: /* PrimaryExp: LVal  */
+#line 181 "./src/lrparser.y"
                  { (yyval.pAst) = (yyvsp[0].pAst); }
-#line 1860 "./build/lrparser.tab.c"
+#line 1781 "./build/lrparser.tab.c"
     break;
 
-  case 98: /* Type: Y_INT  */
+  case 69: /* PrimaryExp: num_INT  */
+#line 182 "./src/lrparser.y"
+                    { (yyval.pAst) = newInt((yyvsp[0].iValue)); }
+#line 1787 "./build/lrparser.tab.c"
+    break;
+
+  case 70: /* PrimaryExp: num_FLOAT  */
+#line 183 "./src/lrparser.y"
+                      { (yyval.pAst) = newFloat((yyvsp[0].fValue)); }
+#line 1793 "./build/lrparser.tab.c"
+    break;
+
+  case 71: /* UnaryExp: PrimaryExp  */
+#line 187 "./src/lrparser.y"
+                     { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1799 "./build/lrparser.tab.c"
+    break;
+
+  case 72: /* UnaryExp: Y_ID Y_LPAR Y_RPAR  */
+#line 188 "./src/lrparser.y"
+                             { (yyval.pAst) = DeclRefExp((yyvsp[-2].sValue), NULL, NULL); }
+#line 1805 "./build/lrparser.tab.c"
+    break;
+
+  case 73: /* UnaryExp: Y_ID Y_LPAR CallParams Y_RPAR  */
+#line 189 "./src/lrparser.y"
+                                        { (yyval.pAst) = DeclRefExp((yyvsp[-3].sValue), (yyvsp[-1].pAst), NULL); }
+#line 1811 "./build/lrparser.tab.c"
+    break;
+
+  case 74: /* UnaryExp: Y_ADD UnaryExp  */
+#line 190 "./src/lrparser.y"
+                         { (yyval.pAst) = UnaryOper(Y_ADD, (yyvsp[0].pAst)); }
+#line 1817 "./build/lrparser.tab.c"
+    break;
+
+  case 75: /* UnaryExp: Y_SUB UnaryExp  */
+#line 191 "./src/lrparser.y"
+                         { (yyval.pAst) = UnaryOper(Y_SUB, (yyvsp[0].pAst)); }
+#line 1823 "./build/lrparser.tab.c"
+    break;
+
+  case 76: /* UnaryExp: Y_NOT UnaryExp  */
+#line 192 "./src/lrparser.y"
+                         { (yyval.pAst) = UnaryOper(Y_NOT, (yyvsp[0].pAst)); }
+#line 1829 "./build/lrparser.tab.c"
+    break;
+
+  case 77: /* CallParams: Exp  */
+#line 196 "./src/lrparser.y"
+                { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1835 "./build/lrparser.tab.c"
+    break;
+
+  case 78: /* CallParams: Exp Y_COMMA CallParams  */
+#line 197 "./src/lrparser.y"
+                                   { (yyval.pAst) = CompoundStmt((yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1841 "./build/lrparser.tab.c"
+    break;
+
+  case 79: /* MulExp: UnaryExp  */
+#line 201 "./src/lrparser.y"
+                 { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1847 "./build/lrparser.tab.c"
+    break;
+
+  case 80: /* MulExp: MulExp Y_MUL UnaryExp  */
+#line 202 "./src/lrparser.y"
+                              { (yyval.pAst) = BinaryOper(Y_MUL, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1853 "./build/lrparser.tab.c"
+    break;
+
+  case 81: /* MulExp: MulExp Y_DIV UnaryExp  */
+#line 203 "./src/lrparser.y"
+                              { (yyval.pAst) = BinaryOper(Y_DIV, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1859 "./build/lrparser.tab.c"
+    break;
+
+  case 82: /* MulExp: MulExp Y_MODULO UnaryExp  */
+#line 204 "./src/lrparser.y"
+                                 { (yyval.pAst) = BinaryOper(Y_MODULO, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1865 "./build/lrparser.tab.c"
+    break;
+
+  case 83: /* AddExp: MulExp  */
+#line 208 "./src/lrparser.y"
+               { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1871 "./build/lrparser.tab.c"
+    break;
+
+  case 84: /* AddExp: AddExp Y_ADD MulExp  */
+#line 209 "./src/lrparser.y"
+                            { (yyval.pAst) = BinaryOper(Y_ADD, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1877 "./build/lrparser.tab.c"
+    break;
+
+  case 85: /* AddExp: AddExp Y_SUB MulExp  */
+#line 210 "./src/lrparser.y"
+                            { (yyval.pAst) = BinaryOper(Y_SUB, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1883 "./build/lrparser.tab.c"
+    break;
+
+  case 86: /* RelExp: AddExp  */
+#line 214 "./src/lrparser.y"
+               { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1889 "./build/lrparser.tab.c"
+    break;
+
+  case 87: /* RelExp: AddExp Y_LESS RelExp  */
+#line 215 "./src/lrparser.y"
+                             { (yyval.pAst) = BinaryOper(Y_LESS, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1895 "./build/lrparser.tab.c"
+    break;
+
+  case 88: /* RelExp: AddExp Y_GREAT RelExp  */
+#line 216 "./src/lrparser.y"
+                              { (yyval.pAst) = BinaryOper(Y_GREAT, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1901 "./build/lrparser.tab.c"
+    break;
+
+  case 89: /* RelExp: AddExp Y_LESSEQ RelExp  */
+#line 217 "./src/lrparser.y"
+                               { (yyval.pAst) = BinaryOper(Y_LESSEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1907 "./build/lrparser.tab.c"
+    break;
+
+  case 90: /* RelExp: AddExp Y_GREATEQ RelExp  */
+#line 218 "./src/lrparser.y"
+                                { (yyval.pAst) = BinaryOper(Y_GREATEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1913 "./build/lrparser.tab.c"
+    break;
+
+  case 91: /* EqExp: RelExp  */
+#line 222 "./src/lrparser.y"
+              { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1919 "./build/lrparser.tab.c"
+    break;
+
+  case 92: /* EqExp: RelExp Y_EQ EqExp  */
+#line 223 "./src/lrparser.y"
+                         { (yyval.pAst) = BinaryOper(Y_EQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1925 "./build/lrparser.tab.c"
+    break;
+
+  case 93: /* EqExp: RelExp Y_NOTEQ EqExp  */
+#line 224 "./src/lrparser.y"
+                            { (yyval.pAst) = BinaryOper(Y_NOTEQ, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1931 "./build/lrparser.tab.c"
+    break;
+
+  case 94: /* LAndExp: EqExp  */
+#line 228 "./src/lrparser.y"
+               { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1937 "./build/lrparser.tab.c"
+    break;
+
+  case 95: /* LAndExp: EqExp Y_AND LAndExp  */
+#line 229 "./src/lrparser.y"
+                             { (yyval.pAst) = BinaryOper(Y_AND, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1943 "./build/lrparser.tab.c"
+    break;
+
+  case 96: /* LOrExp: LAndExp  */
+#line 233 "./src/lrparser.y"
+                { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1949 "./build/lrparser.tab.c"
+    break;
+
+  case 97: /* LOrExp: LAndExp Y_OR LOrExp  */
+#line 234 "./src/lrparser.y"
+                            { (yyval.pAst) = BinaryOper(Y_OR, (yyvsp[-2].pAst), (yyvsp[0].pAst)); }
+#line 1955 "./build/lrparser.tab.c"
+    break;
+
+  case 98: /* ConstExp: AddExp  */
 #line 238 "./src/lrparser.y"
+                 { (yyval.pAst) = (yyvsp[0].pAst); }
+#line 1961 "./build/lrparser.tab.c"
+    break;
+
+  case 99: /* Type: Y_INT  */
+#line 242 "./src/lrparser.y"
             { (yyval.pAst) = newType(Y_INT); }
-#line 1866 "./build/lrparser.tab.c"
+#line 1967 "./build/lrparser.tab.c"
     break;
 
-  case 99: /* Type: Y_FLOAT  */
-#line 239 "./src/lrparser.y"
+  case 100: /* Type: Y_FLOAT  */
+#line 243 "./src/lrparser.y"
               { (yyval.pAst) = newType(Y_FLOAT); }
-#line 1872 "./build/lrparser.tab.c"
+#line 1973 "./build/lrparser.tab.c"
     break;
 
-  case 100: /* Type: Y_VOID  */
-#line 240 "./src/lrparser.y"
+  case 101: /* Type: Y_VOID  */
+#line 244 "./src/lrparser.y"
              { (yyval.pAst) = newType(Y_VOID); }
-#line 1878 "./build/lrparser.tab.c"
+#line 1979 "./build/lrparser.tab.c"
     break;
 
 
-#line 1882 "./build/lrparser.tab.c"
+#line 1983 "./build/lrparser.tab.c"
 
       default: break;
     }
@@ -2071,15 +2172,14 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 243 "./src/lrparser.y"
+#line 247 "./src/lrparser.y"
 
 
 int main() {
-    #ifdef YYDEBUG
+    /* #ifdef YYDEBUG
         yydebug = 1;
-    #endif
+    #endif */
     yyparse(); // 执行语法分析过程
-    showAst(root, 1, false); // 打印语法树
 
     return 0;
 }

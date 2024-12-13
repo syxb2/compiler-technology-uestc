@@ -2,9 +2,9 @@
 BUILD_DIR = ./build
 
 # 源文件
-L_SOURCE = ./src/lrlex.l
-Y_SOURCE = ./src/lrparser.y
-C_SOURCE = ./src/ast.c
+L_SOURCE = ./lrlex.l
+Y_SOURCE = ./lrparser.y
+C_SOURCE = ./ast.c
 
 # flex 生成的 C 文件
 LEX_C = $(BUILD_DIR)/lrlex.yy.c
@@ -16,10 +16,10 @@ YACC_C = $(BUILD_DIR)/lrparser.tab.c
 YACC_H = ./build/lrparser.tab.h
 
 # gcc 编译选项
-C_FLAGS = -I./include -I./build -o $(TARGET)
+C_FLAGS = -I./ -I./build -o $(TARGET)
 
 # bison 编译选项
-Y_FLAGS = -t -o $(YACC_C) -Wcounterexamples
+Y_FLAGS = -d -t -o $(YACC_C) -Wcounterexamples
 
 # flex 编译选项
 L_FLAGS = -d -o $(LEX_C)

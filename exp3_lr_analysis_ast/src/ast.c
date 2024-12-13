@@ -445,7 +445,7 @@ past newFloat(float value) {
 
 past newType(int type) {
     past node = newAstNode();
-    node->nodeType = type;
+    node->ivalue = type;
 
     return node;
 }

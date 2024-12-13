@@ -2,6 +2,8 @@
 .vscode
 demo
 test
+exp4_code_generation/example
 
 .DS_Store
 LLVM Language Reference Manual — LLVM 6 documentation.html
+*.docx

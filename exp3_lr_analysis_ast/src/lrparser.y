@@ -15,6 +15,7 @@ extern void yyrestart();
 /* 生成的 c 文件会自动引用 bison 生成的 h 文件 */
 
 %union {
+    int token;
     int iValue;
     float fValue;
     char* sValue;
@@ -27,8 +28,9 @@ extern void yyrestart();
 %token <iValue> Y_INT Y_FLOAT Y_VOID Y_CONST Y_IF Y_ELSE Y_WHILE Y_BREAK Y_CONTINUE Y_RETURN
 %token <iValue> Y_ADD Y_SUB Y_MUL Y_DIV Y_MODULO Y_LESS Y_LESSEQ Y_GREAT Y_GREATEQ Y_NOTEQ Y_EQ Y_NOT Y_AND Y_OR Y_ASSIGN
 %token <iValue> Y_LPAR Y_RPAR Y_LBRACKET Y_RBRACKET Y_LSQUARE Y_RSQUARE Y_COMMA Y_SEMICOLON
+%token YYEOF
 
-%type <pAst> CompUnit Decl ConstDecl ConstDefs ConstDef ConstExps ConstInitVal ConstInitVals VarDecl VarDecls VarDef InitVal InitVals FuncDef FuncParams FuncParam Block BlockItems BlockItem Stmt Exp LVal ArraySubscripts PrimaryExp UnaryExp CallParams MulExp AddExp RelExp EqExp LAndExp LOrExp ConstExp Type
+%type <pAst> CompUnit Decl ConstDecl ConstDefs ConstDef ConstExps ConstInitVal ConstInitVals VarDecl VarDecls VarDef InitVal InitVals FuncDef FuncParams FuncParam Block BlockItems BlockItem Stmt Exp LVal ArraySubscripts PrimaryExp UnaryExp CallParams MulExp AddExp RelExp EqExp LAndExp LOrExp ConstExp Type program
 
 %left Y_ADD Y_SUB
 %left Y_MUL Y_DIV
@@ -38,6 +40,8 @@ extern void yyrestart();
 /* 我们要做的是写出递归下降函数来计算终结符/非终结符的综合属性（如节点）和继承属性。 */
 /* 所以 bison 实际只是给出了一个文法规则的简便声明的方法，实际的规约动作还是需要我们自己实现。 */
 /* 并不需要每个非终结符都用单独的函数，可以有多个文法使用同一个规约函数（更简洁）。只要实现相应的功能即可。 */
+program: CompUnit YYEOF { showAst($1, 0, 0); }
+            ;
 
 // 编译单元：可以是声明或函数定义的组合
 CompUnit: Decl CompUnit { $$ = CompoundStmt($1, $2); root = $$; }
@@ -243,11 +247,10 @@ Type: Y_INT { $$ = newType(Y_INT); }
 %%
 
 int main() {
-    #ifdef YYDEBUG
+    /* #ifdef YYDEBUG
         yydebug = 1;
-    #endif
+    #endif */
     yyparse(); // 执行语法分析过程
-    showAst(root, 1, false); // 打印语法树
 
     return 0;
 }

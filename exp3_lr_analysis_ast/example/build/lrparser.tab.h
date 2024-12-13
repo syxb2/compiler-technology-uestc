@@ -44,12 +44,6 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
-/* "%code requires" blocks.  */
-#line 1 "./src/lrparser.y"
-
-    #include "ast.h"
-
-#line 53 "./build/lrparser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -61,41 +55,41 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     num_INT = 258,                 /* num_INT  */
-    num_FLOAT = 259,               /* num_FLOAT  */
-    Y_ID = 260,                    /* Y_ID  */
-    Y_INT = 261,                   /* Y_INT  */
-    Y_FLOAT = 262,                 /* Y_FLOAT  */
-    Y_VOID = 263,                  /* Y_VOID  */
-    Y_CONST = 264,                 /* Y_CONST  */
-    Y_IF = 265,                    /* Y_IF  */
-    Y_ELSE = 266,                  /* Y_ELSE  */
-    Y_WHILE = 267,                 /* Y_WHILE  */
-    Y_BREAK = 268,                 /* Y_BREAK  */
-    Y_CONTINUE = 269,              /* Y_CONTINUE  */
-    Y_RETURN = 270,                /* Y_RETURN  */
-    Y_ADD = 271,                   /* Y_ADD  */
-    Y_SUB = 272,                   /* Y_SUB  */
-    Y_MUL = 273,                   /* Y_MUL  */
-    Y_DIV = 274,                   /* Y_DIV  */
+    Y_INT = 259,                   /* Y_INT  */
+    Y_VOID = 260,                  /* Y_VOID  */
+    Y_CONST = 261,                 /* Y_CONST  */
+    Y_IF = 262,                    /* Y_IF  */
+    Y_ELSE = 263,                  /* Y_ELSE  */
+    Y_WHILE = 264,                 /* Y_WHILE  */
+    Y_BREAK = 265,                 /* Y_BREAK  */
+    Y_CONTINUE = 266,              /* Y_CONTINUE  */
+    Y_FLOAT = 267,                 /* Y_FLOAT  */
+    Y_RETURN = 268,                /* Y_RETURN  */
+    Y_ADD = 269,                   /* Y_ADD  */
+    Y_COMMA = 270,                 /* Y_COMMA  */
+    Y_DIV = 271,                   /* Y_DIV  */
+    Y_LPAR = 272,                  /* Y_LPAR  */
+    Y_SUB = 273,                   /* Y_SUB  */
+    Y_LSQUARE = 274,               /* Y_LSQUARE  */
     Y_MODULO = 275,                /* Y_MODULO  */
-    Y_LESS = 276,                  /* Y_LESS  */
-    Y_LESSEQ = 277,                /* Y_LESSEQ  */
-    Y_GREAT = 278,                 /* Y_GREAT  */
-    Y_GREATEQ = 279,               /* Y_GREATEQ  */
-    Y_NOTEQ = 280,                 /* Y_NOTEQ  */
-    Y_EQ = 281,                    /* Y_EQ  */
-    Y_NOT = 282,                   /* Y_NOT  */
-    Y_AND = 283,                   /* Y_AND  */
-    Y_OR = 284,                    /* Y_OR  */
-    Y_ASSIGN = 285,                /* Y_ASSIGN  */
-    Y_LPAR = 286,                  /* Y_LPAR  */
-    Y_RPAR = 287,                  /* Y_RPAR  */
-    Y_LBRACKET = 288,              /* Y_LBRACKET  */
-    Y_RBRACKET = 289,              /* Y_RBRACKET  */
-    Y_LSQUARE = 290,               /* Y_LSQUARE  */
-    Y_RSQUARE = 291,               /* Y_RSQUARE  */
-    Y_COMMA = 292,                 /* Y_COMMA  */
-    Y_SEMICOLON = 293              /* Y_SEMICOLON  */
+    Y_MUL = 276,                   /* Y_MUL  */
+    Y_NOT = 277,                   /* Y_NOT  */
+    Y_RPAR = 278,                  /* Y_RPAR  */
+    Y_RSQUARE = 279,               /* Y_RSQUARE  */
+    Y_RBRACKET = 280,              /* Y_RBRACKET  */
+    Y_LESS = 281,                  /* Y_LESS  */
+    Y_LESSEQ = 282,                /* Y_LESSEQ  */
+    Y_GREAT = 283,                 /* Y_GREAT  */
+    Y_GREATEQ = 284,               /* Y_GREATEQ  */
+    Y_NOTEQ = 285,                 /* Y_NOTEQ  */
+    Y_EQ = 286,                    /* Y_EQ  */
+    Y_AND = 287,                   /* Y_AND  */
+    Y_OR = 288,                    /* Y_OR  */
+    Y_ASSIGN = 289,                /* Y_ASSIGN  */
+    Y_LBRACKET = 290,              /* Y_LBRACKET  */
+    Y_SEMICOLON = 291,             /* Y_SEMICOLON  */
+    num_FLOAT = 292,               /* num_FLOAT  */
+    Y_ID = 293                     /* Y_ID  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -104,15 +98,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "./src/lrparser.y"
+#line 10 "./lrparser.y"
 
     int token;
-    int iValue;
-    float fValue;
-    char* sValue;
+    int int_value;
+    float float_value;
+    char* id_name;
     past pAst;
 
-#line 116 "./build/lrparser.tab.h"
+#line 110 "./build/lrparser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
