@@ -67,3 +67,7 @@ src：指向源字符串的指针。
 ### 参考资料
 
 1. LLVM IR代码生成 - 二元表达式：https://llvm-tutorial-cn.readthedocs.io/en/latest/chapter-3.html
+
+***
+
+注：此实验未完成。example 中完成度较高，但没有通过一系列测试，代码仅供参考。
